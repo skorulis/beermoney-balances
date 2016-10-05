@@ -73,3 +73,5 @@ function createGraph(singleSite) {
 	  .style("stroke", function(d) { return "FF0000"  });
 }
 
+
+ga('send', 'pageview', "/full.html");

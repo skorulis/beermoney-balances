@@ -38,3 +38,5 @@ function showFullPage() {
     });
 }
 
+
+ga('send', 'pageview', "/popup.html");
