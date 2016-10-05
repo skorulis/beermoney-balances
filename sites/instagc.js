@@ -1,0 +1,1 @@
+readAndSaveSimple("instaGC","#stat-points");

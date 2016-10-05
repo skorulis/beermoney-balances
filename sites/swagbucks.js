@@ -1,0 +1,1 @@
+readAndSaveSimple("swagbucks","#sbBalanceAmount");

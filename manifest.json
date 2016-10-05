@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "Beermoney Balances",
+  "version": "0.1",
+  "browser_action": {
+  	"default_icon": "img/icon.png",
+  	"default_popup" : "popup.html"
+	},
+	"permissions": [
+         "storage"
+       ],
+  "content_scripts": [
+  	{
+	    "matches": [
+	      "<all_urls>"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.swagbucks.com/*"
+	    ],
+	    "js": ["sites/swagbucks.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.instagc.com/*"
+	    ],
+	    "js": ["sites/instagc.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://perk.tv/*"
+	    ],
+	    "js": ["sites/perktv.js"]
+	  }
+	]
+}
