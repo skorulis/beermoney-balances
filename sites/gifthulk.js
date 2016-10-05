@@ -1,4 +1,3 @@
-console.log("TEST");
 function readBalance() {
 	var balance = $("#user-balance-count");
 	if(balance.length > 0) {

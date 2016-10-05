@@ -1,6 +1,7 @@
 function saveBalance(site,balance) {
 	var timestamp = Math.floor(Date.now() / 1000);
-	var entry = {"t":timestamp,"s":site,"b":balance};
+	var entry = {"t":timestamp,"b":balance};
+	console.log(chrome);
 	chrome.storage.local.get(site,function(record) {
 		if (record[site] == undefined) {
 			record = {};
@@ -16,7 +17,9 @@ function saveBalance(site,balance) {
 		chrome.storage.local.set(record,function() {
 			console.log("saved ");
 		});
-	});	
+	});
+	chrome.runtime.sendMessage({message: "save",site:site});
+
 }
 
 function readSiteDataArray(completion) {
@@ -37,6 +40,16 @@ function readSiteDataArray(completion) {
 		});
 		completion(sites);
 	});
+}
+
+function readMetaData(completion) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function() {
+		var meta = JSON.parse(this.response);
+		completion(meta);
+	}
+	xhr.open("GET", chrome.extension.getURL('/data/meta.json'), true);
+	xhr.send();
 }
 
 function readAndSaveSimpleInt(site,field) {
