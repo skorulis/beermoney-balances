@@ -6,6 +6,7 @@ readSiteDataArray(function (result) {
 	result.forEach(function(site) {
 		if (site.entries.length > 1) {
 			var id = "graph-" + site.name;
+			graphs.append("<h2>"+site.name+"</h2>");
 			graphs.append('<svg id="'+ id + '" width="960" height="500"></svg>');
 			createGraph(site);	
 		}

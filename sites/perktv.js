@@ -7,7 +7,7 @@ function readPoints() {
 		outer.find(".odometer-value").each(function() {
 			total += $(this).text();
 		});
-		saveBalance("perkTV",parseInt(total));
+		saveBalance("perktv",parseInt(total));
 	}
 }
 

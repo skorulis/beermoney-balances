@@ -51,8 +51,19 @@
 	  		"*://www.inboxpounds.co.uk/*"
 	  	],
 	  	"js": ["sites/inboxpounds.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://my.pureprofile.com/*"
+	  	],
+	  	"js": ["sites/pureprofile.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.gifthulk.com/*","*://search.gifthulk.com/*"
+	  	],
+	  	"js": ["sites/gifthulk.js"]
 	  }
-	  
 
 	]
 }
