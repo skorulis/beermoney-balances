@@ -33,6 +33,26 @@
 	      "*://perk.tv/*"
 	    ],
 	    "js": ["sites/perktv.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.earnhoney.com/*"
+	    ],
+	    "js": ["sites/earnhoney.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.inboxdollars.com/*"
+	  	],
+	  	"js": ["sites/inboxdollars.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.inboxpounds.co.uk/*"
+	  	],
+	  	"js": ["sites/inboxpounds.js"]
 	  }
+	  
+
 	]
 }

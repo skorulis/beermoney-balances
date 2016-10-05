@@ -1,1 +1,1 @@
-readAndSaveSimple("instaGC","#stat-points");
+readAndSaveSimpleInt("instaGC","#stat-points");

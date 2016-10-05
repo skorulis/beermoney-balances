@@ -1,1 +1,1 @@
-readAndSaveSimple("swagbucks","#sbBalanceAmount");
+readAndSaveSimpleInt("swagbucks","#sbBalanceAmount");

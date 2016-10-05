@@ -1,19 +1,6 @@
-chrome.storage.local.get(function (data){
+readSiteDataArray(function (sites) {
 	var innerHtml = "";
-	var sites = [];
-	for (var key in data) {
-		var site = data[key];
-		site["name"] = key;
-		sites.push(site);
-	}
-	sites.sort(function(a,b) {
-		if (a.last > b.last) {
-			return -1;
-		} else if (a.last < b.last) {
-			return 1;
-		}
-		return 0;
-	});
+	
 	console.log(sites);
 	sites.map(function (site) {
 		var entries = site.entries;
@@ -22,3 +9,13 @@ chrome.storage.local.get(function (data){
 	});
 	$("#balances")[0].innerHTML = innerHtml;
 });
+
+
+$("#full-link").click(showFullPage);
+
+function showFullPage() {
+	chrome.tabs.create({'url': chrome.extension.getURL('full.html')}, function(tab) {
+		
+    });
+}
+
