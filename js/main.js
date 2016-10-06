@@ -1,4 +1,8 @@
 function saveBalance(site,balance) {
+	if (isNaN(balance)) {
+		console.error("Got invalid balance " + balance + " for " + site);
+		return;
+	}
 	var timestamp = Math.floor(Date.now() / 1000);
 	var entry = {"t":timestamp,"b":balance};
 	console.log(chrome);
@@ -55,6 +59,8 @@ function readMetaData(completion) {
 function readAndSaveSimpleInt(site,field) {
 	var balanceItem = $(field);
 	if (balanceItem.length > 0) {
+		console.log(balanceItem[0].innerText);
+		console.log(balanceItem.text());
 		balance = balanceItem[0].innerText.replace(/\D/g,'');
 		saveBalance(site,parseInt(balance));
 	}

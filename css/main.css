@@ -1,3 +1,7 @@
+body {
+	margin: 0px;
+}
+
 h1 {
 	text-align: center;
 }
@@ -13,13 +17,23 @@ h1 {
 }
 
 .site-balance {
-	border:1px solid #999;
+	border:2px solid #76b852;
 	border-radius: 5px;
 	padding: 10px 10px;
-	margin: 8px 0px;
+	margin: 8px 10px;
 }
 
 .site-balance * {
 	padding: 0px 0;
 	margin: 0
+}
+
+header,footer {
+	background: #76b852; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, #76b852 , #8DC26F);
+	background: linear-gradient(to left, #76b852 , #8DC26F); 
+	color: white;
+	margin: 0;
+	height: 40px;
+	line-height: 40px;
 }

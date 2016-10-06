@@ -67,6 +67,18 @@
 	  		"*://www.gifthulk.com/*","*://search.gifthulk.com/*"
 	  	],
 	  	"js": ["sites/gifthulk.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.mturk.com/mturk/dashboard"
+	  	],
+	  	"js": ["sites/mturk.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://au.yougov.com/*"
+	  	],
+	  	"js": ["sites/yougovau.js"]
 	  }
 
 	]
