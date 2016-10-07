@@ -1,0 +1,1 @@
+readAndSaveSimpleInt("prizerebel",".navigation-account-points-value");

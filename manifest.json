@@ -79,6 +79,12 @@
 	  		"*://au.yougov.com/*"
 	  	],
 	  	"js": ["sites/yougovau.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.prizerebel.com/*"
+	  	],
+	  	"js": ["sites/prizerebel.js"]
 	  }
 
 	]

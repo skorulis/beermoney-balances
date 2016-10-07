@@ -34,7 +34,7 @@ $("#full-link").click(showFullPage);
 function updateBalance(event) {
 	var url = event.target.href;
 	var site = event.target.dataset.site;
-	chrome.tabs.create({'url': url}, function(tab) {
+	chrome.tabs.create({'url': url,active:false}, function(tab) {
 		chrome.runtime.sendMessage({message: "start-update",tab:tab.id,site:site});
     });
 	return false;
