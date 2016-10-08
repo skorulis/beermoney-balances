@@ -2,6 +2,8 @@ replaceVersionNumber();
 
 readSiteDataArray(function (result) {
 	readMetaData(function(meta) {
+		var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+		$("#export").attr("href",dataStr);
 		var graphs = $("#graphs");
 
 		if(result.length > 1) {
