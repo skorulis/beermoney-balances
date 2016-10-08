@@ -4,6 +4,7 @@
   "version": "0.1.2",
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "author":"Alex Skorulis",
+  "short_name":"BMB",
   "homepage_url":"http://beermoneybalances.skorulis.com/",
   "background": {
     "scripts": ["js/background.js"]
