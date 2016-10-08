@@ -13,17 +13,61 @@ readSiteDataArray(function (result) {
 				var id = "graph-" + site.name;
 				graphs.append("<h2>"+site.name+"</h2>");
 				graphs.append('<svg id="'+ id + '" width="960" height="500"></svg>');
-				createGraph([site],meta, false);	
+				createGraph([site],meta, false);
+
+
+				createHistory(site,meta,graphs);	
 			}
 		});
 	});
 
 });
 
+function createHistory(site,allMeta,element) {
+	var innerHtml = "<table><tr>";
+	var timestamp = (new Date()).getTime()/1000;
+	var totals = [];
+	totals.push({name:"Last hour",time:3600,total:0})
+	totals.push({name:"Last 3 hours",time:3*3600,total:0})
+	totals.push({name:"Last 8 hours",time:8*3600,total:0})
+	totals.push({name:"Last 24 hours",time:24*3600,total:0})
+	totals.push({name:"Last 7 days",time:7*24*3600,total:0})
+
+	console.log(timestamp);
+	var previous = null;
+	site.entries.forEach(function (e) {
+		var change = e.b;
+		if(previous) {
+			change = e.b - previous.b;
+		}
+		totals.forEach(function(t) {
+			if (timestamp - e.t < t.time) {
+				t.total += change;
+			}
+		});
+
+		previous = e;
+	});
+	
+	totals.forEach(function (t) {
+		innerHtml += "<td>" + t.name + "</td>";
+	});
+	innerHtml += "</tr><tr>";
+	totals.forEach(function (t) {
+		innerHtml += "<td>" + t.total + "</td>";
+	});
+
+
+	innerHtml += "</table>"; 
+
+	element.append(innerHtml);
+}
+
 
 function createGraph(siteList,allMeta, useUSD) {
 	var svg;
 	if (siteList.length == 1) {
+		console.log("graph " + siteList[0].name);
 		svg = d3.select("#graph-" + siteList[0].name);
 	} else {
 		svg = d3.select("#graph-all");
@@ -66,6 +110,7 @@ function createGraph(siteList,allMeta, useUSD) {
 			return d.b;
 		}
 		}); 
+		console.log(tempY);
 
 		xExtant[0] = Math.min(xExtant[0],tempX[0]);
         xExtant[1] = Math.max(xExtant[1],tempX[1]);
@@ -74,6 +119,7 @@ function createGraph(siteList,allMeta, useUSD) {
         yExtant[1] = Math.max(yExtant[1],tempY[1]);
 	});
           
+          console.log(yExtant);
 	x.domain(xExtant);
 	y.domain(yExtant);
 	z.domain(siteList.map(function(c) { return c.name; }));

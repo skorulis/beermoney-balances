@@ -1,4 +1,9 @@
 function saveBalance(site,balance) {
+	console.log("SAve " + balance);
+	if (typeof balance === 'string' ) {
+		console.log("coerce string");
+		balance = parseFloat(balance);
+	}
 	if (isNaN(balance)) {
 		console.error("Got invalid balance " + balance + " for " + site);
 		return;
@@ -15,15 +20,12 @@ function saveBalance(site,balance) {
 		var last = entries[entries.length - 1];
 		record[site].last = timestamp;
 		if (last == undefined || last.b != balance) {
-			console.log("Change");
 			entries.push(entry);
 		}
 		chrome.storage.local.set(record,function() {
-			console.log("saved ");
+			chrome.runtime.sendMessage({message: "save",site:site,balance:balance});
 		});
 	});
-	chrome.runtime.sendMessage({message: "save",site:site});
-
 }
 
 function readSiteDataArray(completion) {
