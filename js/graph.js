@@ -14,15 +14,15 @@ readSiteDataArray(function (result) {
 		}
 
 		result.forEach(function(site) {
+			graphs.append('<h2 class="graph-name">'+site.name+"</h2>");
 			if (site.entries.length > 1) {
 				var id = "graph-" + site.name;
-				graphs.append('<h2 class="graph-name">'+site.name+"</h2>");
+				
 				graphs.append('<svg id="'+ id + '" width="960" height="500"></svg>');
-
 				createGraph([site],meta, false);
-				createHistory(site,meta,graphs);
-				graphs.append("<hr>")	
 			}
+			createHistory(site,meta,graphs);
+			graphs.append("<hr>")	
 		});
 	});
 
