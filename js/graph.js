@@ -1,22 +1,25 @@
-console.log("Creating graphs");
+replaceVersionNumber();
 
 readSiteDataArray(function (result) {
 	readMetaData(function(meta) {
 		var graphs = $("#graphs");
 
-		graphs.append("<h2>All sites</h2>");
-		graphs.append('<svg id="graph-all" width="960" height="500"></svg>');
-		createGraph(result,meta,true)
+		if(result.length > 1) {
+			graphs.append('<h2 class="graph-name">All sites</h2>');
+			graphs.append('<svg id="graph-all" width="960" height="500"></svg>');
+			createGraph(result,meta,true)
+			graphs.append("<hr>")	
+		}
 
 		result.forEach(function(site) {
 			if (site.entries.length > 1) {
 				var id = "graph-" + site.name;
-				graphs.append("<h2>"+site.name+"</h2>");
+				graphs.append('<h2 class="graph-name">'+site.name+"</h2>");
 				graphs.append('<svg id="'+ id + '" width="960" height="500"></svg>');
+
 				createGraph([site],meta, false);
-
-
-				createHistory(site,meta,graphs);	
+				createHistory(site,meta,graphs);
+				graphs.append("<hr>")	
 			}
 		});
 	});
@@ -24,7 +27,7 @@ readSiteDataArray(function (result) {
 });
 
 function createHistory(site,allMeta,element) {
-	var innerHtml = "<table><tr>";
+	var innerHtml = '<div class="time-wrapper"> <table><tr class="time-header">';
 	var timestamp = (new Date()).getTime()/1000;
 	var totals = [];
 	totals.push({name:"Last hour",time:3600,total:0})
@@ -40,25 +43,28 @@ function createHistory(site,allMeta,element) {
 		if(previous) {
 			change = e.b - previous.b;
 		}
-		totals.forEach(function(t) {
-			if (timestamp - e.t < t.time) {
-				t.total += change;
-			}
-		});
+		if (change > 0) {
+			totals.forEach(function(t) {
+				if (timestamp - e.t < t.time) {
+					t.total += change;
+				}
+			});	
+		}
 
 		previous = e;
 	});
+	var decimals = allMeta[site.name].fractions ? 2 : 0;
 	
 	totals.forEach(function (t) {
 		innerHtml += "<td>" + t.name + "</td>";
 	});
-	innerHtml += "</tr><tr>";
+	innerHtml += '</tr><tr class="time-values">';
 	totals.forEach(function (t) {
-		innerHtml += "<td>" + t.total + "</td>";
+		innerHtml += "<td>" + t.total.toFixed(decimals) + "</td>";
 	});
 
 
-	innerHtml += "</table>"; 
+	innerHtml += "</table></div>"; 
 
 	element.append(innerHtml);
 }

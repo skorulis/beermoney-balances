@@ -75,3 +75,8 @@ function readAndSaveSimpleFloat(site,field) {
 		saveBalance(site,parseFloat(balance));
 	}
 }
+
+function replaceVersionNumber() {
+	var manifestData = chrome.app.getDetails();
+	$("#version").text("version: " + manifestData.version);
+}

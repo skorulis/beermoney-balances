@@ -25,11 +25,43 @@ h1 {
 	border-radius: 5px;
 	padding: 10px 10px;
 	margin: 8px 10px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .site-balance * {
 	padding: 0px 0;
-	margin: 0
+	margin: 0;
+}
+
+.graph-name {
+	text-align: center;
+}
+
+table {
+	text-align: center;
+	color: #fff;
+	border-spacing: 0;
+}
+
+table td {
+	padding: 10px;
+	border-collapse: separate;
+	margin: 0;
+}
+
+.time-header {
+	font-weight: bold;
+	background-color: #2c3e50;
+}
+
+.time-values {
+	background-color: #18bc9c;
+}
+
+.time-wrapper {
+	display: flex;
+	justify-content: center;
 }
 
 header,footer {
@@ -69,7 +101,7 @@ i {
 }
 
 i.plain {
-	color: #fff !important;
+	color: #fff;
 	font-size: 30px;
 }
 
