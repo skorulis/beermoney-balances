@@ -85,6 +85,18 @@
 	  		"*://www.prizerebel.com/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/prizerebel.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.prolific.ac/participant/account"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/prolific.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://members.grabpoints.com/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/grabpoints.js"]
 	  }
 
 	]

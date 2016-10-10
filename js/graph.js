@@ -6,10 +6,16 @@ readSiteDataArray(function (result) {
 		$("#export").attr("href",dataStr);
 		var graphs = $("#graphs");
 
+
+
 		if(result.length > 1) {
+			var withValues = result.filter(function(x) {
+				return x.entries.length > 0;
+			});
+
 			graphs.append('<h2 class="graph-name">All sites</h2>');
 			graphs.append('<svg id="graph-all" width="960" height="500"></svg>');
-			createGraph(result,meta,true)
+			createGraph(withValues,meta,true)
 			graphs.append("<hr>")	
 		}
 

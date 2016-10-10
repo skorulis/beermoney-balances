@@ -18,7 +18,11 @@ function createEntries(sites,metaData) {
 		$("#balances").show();
 	}
 
-	sites.map(function (site) {
+	sites = sites.filter(function(s) {
+		return s.entries.length > 0;
+	});
+
+	sites.forEach(function (site) {
 		var meta = metaData[site.name];
 		var entries = site.entries;
 		var balance = entries[entries.length - 1].b;
