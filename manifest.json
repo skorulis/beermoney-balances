@@ -97,7 +97,14 @@
 	  		"*://members.grabpoints.com/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/grabpoints.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://freebitco.in/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/freebitco.in.js"]
 	  }
+
 
 	]
 }

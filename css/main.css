@@ -109,6 +109,11 @@ a.plain {
 	text-decoration: none;
 }
 
+.update-link {
+	display: flex;
+	align-items: center;
+}
+
 .icon-arrows-cw:before { content: '\e800'; } /* '' */
 .icon-beer:before { content: '\e801'; } /* '' */
 .icon-money:before { content: '\e802'; } /* '' */

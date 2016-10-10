@@ -1,0 +1,1 @@
+readAndSaveSimpleFloat("freebitco.in","#balance");
