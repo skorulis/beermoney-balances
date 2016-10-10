@@ -4,9 +4,6 @@ function reloadAll() {
 			createEntries(sites,meta);
 		});
 	});	
-
-	
-
 }
 
 function createEntries(sites,metaData) {
@@ -66,6 +63,7 @@ $("#full-link").click(showFullPage);
 function updateBalance(event) {
 	var url = getEventHref(event);
 	var site = $(event.target).parent()[0].dataset.site;
+	ga('send', 'event', 'Update balance', site);
 	chrome.tabs.create({'url': url,active:false}, function(tab) {
 		chrome.runtime.sendMessage({message: "start-update",tab:tab.id,site:site});
     });
