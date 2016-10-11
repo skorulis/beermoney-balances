@@ -1,0 +1,94 @@
+{
+	"swagbucks": {
+		"conversion": 100,
+		"url":"http://www.swagbucks.com/",
+		"name":"SwagBucks",
+		"fractions":false
+	},
+	"perktv": {
+		"conversion": 1500,
+		"url":"http://perk.tv/home",
+		"name":"PerkTV",
+		"fractions":false
+	},
+	"earnhoney": {
+		"conversion": 100,
+		"url":"http://www.earnhoney.com/",
+		"name":"EarnHoney",
+		"fractions":true
+	},
+	"gifthulk": {
+		"conversion": 1000,
+		"url":"http://www.gifthulk.com/",
+		"name":"GiftHulk",
+		"fractions":false
+	},
+	"inboxpounds": {
+		"conversion": 0.79,
+		"url":"http://www.inboxpounds.co.uk/members/myAccount",
+		"name":"InboxPounds",
+		"fractions":true
+	},
+	"inboxdollars": {
+		"conversion": 1,
+		"url":"http://www.inboxdollars.com/members/myAccount",
+		"name":"InboxDollars",
+		"fractions":true
+	},
+	"pureprofile": {
+		"conversion": 1,
+		"url":"https://my.pureprofile.com",
+		"name":"PureProfile",
+		"fractions":true
+	},
+	"instagc": {
+		"conversion": 100,
+		"url":"https://www.instagc.com/earn/",
+		"name":"InstaGC",
+		"fractions":false
+	},
+	"yougovau": {
+		"conversion": 200,
+		"url":"https://au.yougov.com/account/",
+		"name":"YouGov AU",
+		"fractions":false
+	},
+	"yougovus": {
+		"conversion": 1000,
+		"url":"https://today.yougov.com",
+		"name":"YouGov US",
+		"fractions":false
+	},
+	"mturk": {
+		"conversion": 1,
+		"url":"https://www.mturk.com/mturk/dashboard",
+		"name":"mturk",
+		"fractions":true
+	},
+	"prizerebel": {
+		"conversion": 100,
+		"url":"http://www.prizerebel.com",
+		"name":"PrizeRebel",
+		"fractions":false
+	},
+	"prolific": {
+		"conversion": 0.79,
+		"url":"https://www.prolific.ac/participant/account",
+		"name":"Prolific",
+		"fractions":true
+	},
+	"grabpoints": {
+		"conversion": 1000,
+		"url":"http://members.grabpoints.com/",
+		"name":"Grabpoints",
+		"fractions":false
+	},
+	"freebitco.in": {
+		"conversion": 618,
+		"url":"https://freebitco.in",
+		"name":"Free bitcoin",
+		"fractions":true
+	}
+
+
+}
