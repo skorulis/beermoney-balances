@@ -88,6 +88,12 @@
 		"url":"https://freebitco.in",
 		"name":"Free bitcoin",
 		"fractions":true
+	},
+	"usabilityhub": {
+		"conversion": 10,
+		"url":"https://usabilityhub.com/testers/dashboard",
+		"name":"UsabilityHub",
+		"fractions":false
 	}
 
 
