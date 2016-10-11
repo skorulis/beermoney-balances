@@ -20,7 +20,11 @@ readSiteDataArray(function (result) {
 		}
 
 		result.forEach(function(site) {
-			graphs.append('<h2 class="graph-name">'+site.name+ '<a style="display:none" id="delete-' + site.name + ' href="#"><i class="icon-trash-empty"> </i></a>' +  "</h2>");
+			var html =  '<h1 class="graph-name">';
+			html += site.name+ ' <button class="delete" id="delete-' + site.name + '"><i class="icon-trash-empty"> </i> delete site data</button>';
+			html += "</h1>";
+
+			graphs.append(html);
 			if (site.entries.length > 1 && meta[site.name] != undefined) {
 				var id = "graph-" + site.name;
 				
@@ -33,8 +37,10 @@ readSiteDataArray(function (result) {
 			
 			graphs.append("<hr>")	
 		});
-	});
 
+		$("button.delete").click(deleteData);
+	});
+	
 });
 
 function createHistory(site,allMeta,element) {
@@ -47,7 +53,6 @@ function createHistory(site,allMeta,element) {
 	totals.push({name:"Last 24 hours",time:24*3600,total:0})
 	totals.push({name:"Last 7 days",time:7*24*3600,total:0})
 
-	console.log(timestamp);
 	var previous = null;
 	site.entries.forEach(function (e) {
 		var change = e.b;
@@ -84,7 +89,6 @@ function createHistory(site,allMeta,element) {
 function createGraph(siteList,allMeta, useUSD) {
 	var svg;
 	if (siteList.length == 1) {
-		console.log("graph " + siteList[0].name);
 		svg = d3.select("#graph-" + siteList[0].name);
 	} else {
 		svg = d3.select("#graph-all");
@@ -127,7 +131,6 @@ function createGraph(siteList,allMeta, useUSD) {
 			return d.b;
 		}
 		}); 
-		console.log(tempY);
 
 		xExtant[0] = Math.min(xExtant[0],tempX[0]);
         xExtant[1] = Math.max(xExtant[1],tempX[1]);
@@ -136,7 +139,6 @@ function createGraph(siteList,allMeta, useUSD) {
         yExtant[1] = Math.max(yExtant[1],tempY[1]);
 	});
           
-          console.log(yExtant);
 	x.domain(xExtant);
 	y.domain(yExtant);
 	z.domain(siteList.map(function(c) { return c.name; }));
@@ -176,6 +178,19 @@ function createGraph(siteList,allMeta, useUSD) {
 	      .style("fill", function(d) { return z(d.name);  })
 	      .text(function(d) { return d.name; });	
 	}
+}
+
+function deleteData(event) {
+	var site = event.target.id.replace("delete-","");
+	console.log(site);
+	if (window.confirm("Are you sure? This will delete all data for " + site + "!")) {
+		console.log(event);
+		chrome.storage.local.remove(site,function() {
+			location.reload();
+		});
+	}
+	
+
 }
 
 ga('send', 'pageview', "/full.html");
