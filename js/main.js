@@ -79,11 +79,20 @@ function readMetaData(completion) {
 function readAndSaveSimpleInt(site,field) {
 	var balanceItem = $(field);
 	if (balanceItem.length > 0) {
-		console.log(balanceItem[0].innerText);
 		console.log(balanceItem.text());
-		balance = balanceItem[0].innerText.replace(/\D/g,'');
-		saveBalance(site,parseInt(balance));
+		var text = balanceItem.text();
+		saveBalance(site,parseIntText(text));
 	}
+}
+
+function parseIntText(text) {
+	var mult = 1;
+	var last = text.slice(-1);
+	if (last == "k" || last == "K") {	
+		mult = 1000;
+	}
+	var balance = text.replace(/\D/g,'');
+	return parseInt(balance)*mult;
 }
 
 function readAndSaveSimpleFloat(site,field) {
