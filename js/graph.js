@@ -44,7 +44,8 @@ readSiteDataArray(function (result) {
 });
 
 function createHistory(site,allMeta,element) {
-	var innerHtml = '<div class="time-wrapper"> <table><tr class="time-header">';
+	var innerHtml = '<h2 style="text-align:center">Earnings</h2>';
+	innerHtml += '<div class="time-wrapper"> <table><tr class="time-header">';
 	var timestamp = (new Date()).getTime()/1000;
 	var totals = [];
 	totals.push({name:"Last hour",time:3600,total:0})
@@ -55,7 +56,7 @@ function createHistory(site,allMeta,element) {
 
 	var previous = null;
 	site.entries.forEach(function (e) {
-		var change = e.b;
+		var change = 0;
 		if(previous) {
 			change = e.b - previous.b;
 		}
