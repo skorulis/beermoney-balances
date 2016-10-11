@@ -10,7 +10,7 @@ readSiteDataArray(function (result) {
 
 		if(result.length > 1) {
 			var withValues = result.filter(function(x) {
-				return x.entries.length > 0;
+				return x.entries.length > 0 && meta[x.name] != undefined;
 			});
 
 			graphs.append('<h2 class="graph-name">All sites</h2>');
@@ -20,14 +20,17 @@ readSiteDataArray(function (result) {
 		}
 
 		result.forEach(function(site) {
-			graphs.append('<h2 class="graph-name">'+site.name+"</h2>");
-			if (site.entries.length > 1) {
+			graphs.append('<h2 class="graph-name">'+site.name+ '<a style="display:none" id="delete-' + site.name + ' href="#"><i class="icon-trash-empty"> </i></a>' +  "</h2>");
+			if (site.entries.length > 1 && meta[site.name] != undefined) {
 				var id = "graph-" + site.name;
 				
 				graphs.append('<svg id="'+ id + '" width="960" height="500"></svg>');
 				createGraph([site],meta, false);
 			}
-			createHistory(site,meta,graphs);
+			if (meta[site.name] != undefined) {
+				createHistory(site,meta,graphs);	
+			}
+			
 			graphs.append("<hr>")	
 		});
 	});

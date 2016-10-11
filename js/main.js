@@ -80,7 +80,7 @@ function readAndSaveSimpleInt(site,field) {
 	var balanceItem = $(field);
 	if (balanceItem.length > 0) {
 		console.log(balanceItem.text());
-		var text = balanceItem.text();
+		var text = balanceItem[0].innerText;
 		saveBalance(site,parseIntText(text));
 	}
 }

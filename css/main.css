@@ -115,11 +115,13 @@ a.plain {
 	align-items: center;
 }
 
+
 .icon-arrows-cw:before { content: '\e800'; } /* '' */
 .icon-beer:before { content: '\e801'; } /* '' */
 .icon-money:before { content: '\e802'; } /* '' */
 .icon-star:before { content: '\e803'; } /* '' */
 .icon-star-empty:before { content: '\e804'; } /* '' */
 .icon-home:before { content: '\e805'; } /* '' */
+.icon-trash-empty:before { content: '\e806'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-dollar:before { content: '\f155'; } /* '' */

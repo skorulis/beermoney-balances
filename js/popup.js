@@ -19,7 +19,7 @@ function createEntries(sites,metaData) {
 	}
 
 	sites = sites.filter(function(s) {
-		return s.entries.length > 0;
+		return s.entries.length > 0 && metaData[s.name] != undefined;
 	});
 
 	sites.forEach(function (site) {
@@ -32,7 +32,7 @@ function createEntries(sites,metaData) {
 		}
 		innerHtml += '<div class="site-balance">';
 		innerHtml += '<div>';
-		innerHtml += "<h2>" + site["name"] + " ";
+		innerHtml += '<h2><a class="site-link" href="' + meta["url"] + '">'  + site["name"] + "</a> ";
 		if (meta.conversion == 1) {
 			innerHtml += usdText;
 		} else if(usdText.length > 0) {
@@ -58,6 +58,7 @@ function setupLinks() {
 	$("#twitter-link").click(showLink);
 	$("#home-link").click(showLink);
 	$("#sup-link").click(showLink);
+	$(".site-link").click(showLink);
 }
 
 

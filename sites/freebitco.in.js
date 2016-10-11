@@ -1,1 +1,1 @@
-readAndSaveSimpleFloat("freebitco.in","#balance");
+readAndSaveSimpleFloat("freebitco-in","#balance");

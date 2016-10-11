@@ -83,7 +83,7 @@
 		"name":"Grabpoints",
 		"fractions":false
 	},
-	"freebitco.in": {
+	"freebitco-in": {
 		"conversion": 618,
 		"url":"https://freebitco.in",
 		"name":"Free bitcoin",
