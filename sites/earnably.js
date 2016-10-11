@@ -1,0 +1,1 @@
+readAndSaveSimpleFloat("earnably","#points");

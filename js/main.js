@@ -99,6 +99,7 @@ function readAndSaveSimpleFloat(site,field) {
 	var balanceItem = $(field);
 	if (balanceItem.length > 0) {
 		balance = balanceItem[0].innerText
+		console.log("Float value " + balance);
 		saveBalance(site,parseFloat(balance));
 	}
 }

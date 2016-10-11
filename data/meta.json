@@ -94,6 +94,12 @@
 		"url":"https://usabilityhub.com/testers/dashboard",
 		"name":"UsabilityHub",
 		"fractions":false
+	},
+	"earnably": {
+		"conversion": 100,
+		"url":"http://earnably.com/",
+		"name":"Earnably",
+		"fractions":true
 	}
 
 
