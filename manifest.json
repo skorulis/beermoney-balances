@@ -1,13 +1,18 @@
 {
   "manifest_version": 2,
   "name": "Beermoney Balances",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "author":"Alex Skorulis",
   "short_name":"BMB",
   "homepage_url":"http://beermoneybalances.skorulis.com/",
   "background": {
     "scripts": ["js/background.js"]
+  },
+  "applications": {
+  	"gecko": {
+    	"id": "bmb@skorulis.com"
+  	}
   },
   "icons": { "16": "img/icon-16.png",
            "48": "img/icon-48.png",

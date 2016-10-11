@@ -104,6 +104,6 @@ function readAndSaveSimpleFloat(site,field) {
 }
 
 function replaceVersionNumber() {
-	var manifestData = chrome.app.getDetails();
+	var manifestData = chrome.runtime.getManifest();
 	$("#version").text("version: " + manifestData.version);
 }

@@ -57,7 +57,6 @@ function setupLinks() {
 	$(".update-link").click(updateBalance);
 	$("#twitter-link").click(showLink);
 	$("#home-link").click(showLink);
-	$("#home-link").click(showLink);
 	$("#sup-link").click(showLink);
 }
 
@@ -76,11 +75,13 @@ function updateBalance(event) {
 
 function showFullPage() {
 	chrome.tabs.create({'url': chrome.extension.getURL('full.html')});
+	return false;
 }
 
 function showLink(event) {
 	var url = getEventHref(event);
 	chrome.tabs.create({'url': url});
+	return false;
 }
 
 function getEventHref(event) {
