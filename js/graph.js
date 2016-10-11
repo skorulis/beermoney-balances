@@ -6,16 +6,31 @@ readSiteDataArray(function (result) {
 		$("#export").attr("href",dataStr);
 		var graphs = $("#graphs");
 
+		result.forEach(function(site) {
+			var m = meta[site.name];
+			site.entries.forEach(function(e) {
+				e.date = new Date(e.t*1000);
+				e.usd = e.b / m.conversion;
+			});
+		});
 
+		var total = result.reduce(function(cur,site) {
+			if (site.entries.length == 0) {
+				return cur;
+			}
+			var usd = site.entries[site.entries.length - 1].usd;
+			return cur + usd;
+		},0);
 
 		if(result.length > 1) {
 			var withValues = result.filter(function(x) {
 				return x.entries.length > 0 && meta[x.name] != undefined;
 			});
 
-			graphs.append('<h2 class="graph-name">All sites</h2>');
+			graphs.append('<h2 class="graph-name">All site balances, $' + total.toFixed(2) + ' outstanding</h2>');
 			graphs.append('<svg id="graph-all" width="960" height="500"></svg>');
-			createGraph(withValues,meta,true)
+			createGraph(withValues,meta,true);
+			createHistory(result,meta,graphs,true);
 			graphs.append("<hr>")	
 		}
 
@@ -32,7 +47,7 @@ readSiteDataArray(function (result) {
 				createGraph([site],meta, false);
 			}
 			if (meta[site.name] != undefined) {
-				createHistory(site,meta,graphs);	
+				createHistory([site],meta,graphs,false);	
 			}
 			
 			graphs.append("<hr>")	
@@ -43,7 +58,7 @@ readSiteDataArray(function (result) {
 	
 });
 
-function createHistory(site,allMeta,element) {
+function createHistory(siteList,allMeta,element,useUSD) {
 	var innerHtml = '<h2 style="text-align:center">Earnings</h2>';
 	innerHtml += '<div class="time-wrapper"> <table><tr class="time-header">';
 	var timestamp = (new Date()).getTime()/1000;
@@ -54,23 +69,33 @@ function createHistory(site,allMeta,element) {
 	totals.push({name:"Last 24 hours",time:24*3600,total:0})
 	totals.push({name:"Last 7 days",time:7*24*3600,total:0})
 
-	var previous = null;
-	site.entries.forEach(function (e) {
-		var change = 0;
-		if(previous) {
-			change = e.b - previous.b;
-		}
-		if (change > 0) {
-			totals.forEach(function(t) {
-				if (timestamp - e.t < t.time) {
-					t.total += change;
+	
+	siteList.forEach(function(site) {
+		var previous = null;
+		site.entries.forEach(function (e) {
+			var change = 0;
+			if(previous != undefined) {
+				if (useUSD) {
+					change = e.usd - previous.usd;
+				} else {
+					change = e.b - previous.b;	
 				}
-			});	
-		}
-
-		previous = e;
+			}
+			if (change > 0) {
+				totals.forEach(function(t) {
+					if (timestamp - e.t < t.time) {
+						t.total += change;
+					}
+				});	
+			}
+			previous = e;
+		});
 	});
-	var decimals = allMeta[site.name].fractions ? 2 : 0;
+	
+	var decimals = 2;
+	if(siteList.length == 1 && allMeta[siteList[0].name].fractions == false) {
+		decimals = 0;
+	}
 	
 	totals.forEach(function (t) {
 		innerHtml += "<td>" + t.name + "</td>";
@@ -118,12 +143,6 @@ function createGraph(siteList,allMeta, useUSD) {
 
 
 	siteList.forEach(function(site) {
-		var meta = allMeta[site.name];
-		site.entries.forEach(function(e) {
-			e.date = new Date(e.t*1000);
-			e.usd = e.b / meta.conversion;
-		});
-
 		var tempX = d3.extent(site.entries, function(d) {return d.date;});
 		var tempY = d3.extent(site.entries, function(d) {
 		if (useUSD) {
