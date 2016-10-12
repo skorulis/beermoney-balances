@@ -132,6 +132,12 @@
 	  		"*://www.clixsense.com/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/clixsense.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.nadamobile.com/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/nada.js"]
 	  }
 
 

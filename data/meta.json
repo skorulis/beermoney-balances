@@ -106,6 +106,12 @@
 		"url":"http://www.clixsense.com/",
 		"name":"Clixsense",
 		"fractions":true
+	},
+	"nada": {
+		"conversion": 1000,
+		"url":"http://www.nadamobile.com/",
+		"name":"NADAmobile",
+		"fractions":false
 	}
 
 
