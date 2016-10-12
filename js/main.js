@@ -10,17 +10,15 @@ ga('require', 'displayfeatures');
 
 function saveBalance(site,balance) {
 	if (typeof balance === 'string' ) {
-		console.log("coerce string");
 		balance = parseFloat(balance);
 	}
 	if (isNaN(balance)) {
-		console.error("Got invalid balance " + balance + " for " + site);
+		//console.error("Got invalid balance " + balance + " for " + site);
 		return;
 	}
 	var timestamp = Math.floor(Date.now() / 1000);
 	var entry = {"t":timestamp,"b":balance};
 	ga('send', 'event', 'Change balance', site);
-	console.log("Log event " + site);
 	chrome.storage.local.get(site,function(record) {
 		if (record[site] == undefined) {
 			record = {};
@@ -79,7 +77,6 @@ function readMetaData(completion) {
 function readAndSaveSimpleInt(site,field) {
 	var balanceItem = $(field);
 	if (balanceItem.length > 0) {
-		console.log(balanceItem.text());
 		var text = balanceItem[0].innerText;
 		saveBalance(site,parseIntText(text));
 	}
@@ -99,7 +96,6 @@ function readAndSaveSimpleFloat(site,field) {
 	var balanceItem = $(field);
 	if (balanceItem.length > 0) {
 		balance = balanceItem[0].innerText
-		console.log("Float value " + balance);
 		saveBalance(site,parseFloat(balance));
 	}
 }

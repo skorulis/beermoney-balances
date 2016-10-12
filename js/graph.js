@@ -202,9 +202,7 @@ function createGraph(siteList,allMeta, useUSD) {
 
 function deleteData(event) {
 	var site = event.target.id.replace("delete-","");
-	console.log(site);
 	if (window.confirm("Are you sure? This will delete all data for " + site + "!")) {
-		console.log(event);
 		chrome.storage.local.remove(site,function() {
 			location.reload();
 		});

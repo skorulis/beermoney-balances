@@ -8,8 +8,6 @@ function reloadAll() {
 
 function createEntries(sites,metaData) {
 	var innerHtml = "";
-	console.log(metaData);
-	console.log(sites);
 	if(sites.length == 0) {
 		$("#no-balances").show();
 		$("#balances").hide();

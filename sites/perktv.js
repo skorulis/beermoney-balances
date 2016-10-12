@@ -1,6 +1,5 @@
 function readPoints() {
 	var outer = $("#total_points");
-	console.log(outer);
 	if (outer.length > 0) {
 		var total = "";
 		console.log(outer.find(".odometer-value"));

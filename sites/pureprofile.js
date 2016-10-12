@@ -3,8 +3,7 @@ function readBalance() {
 	if (outer.length == 0) {
 		outer = $('nav.navbar-fixed-top');
 	}
-
-	console.log(outer);
+	
 	if (outer.length > 0) {
 		var metric = outer.find(".profile-metric")[0];
 		var balance = $(metric).children('strong')[0];
