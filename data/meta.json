@@ -112,6 +112,12 @@
 		"url":"http://www.nadamobile.com/",
 		"name":"NADAmobile",
 		"fractions":false
+	},
+	"irazoo": {
+		"conversion": 600,
+		"url":"http://app.irazoo.com/",
+		"name":"iRazoo",
+		"fractions":false
 	}
 
 
