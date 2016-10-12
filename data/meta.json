@@ -111,7 +111,7 @@
 		"conversion": 1000,
 		"url":"http://www.nadamobile.com/",
 		"name":"NADAmobile",
-		"fractions":true
+		"fractions":false
 	}
 
 
