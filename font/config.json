@@ -59,6 +59,12 @@
       "css": "trash-empty",
       "code": 59398,
       "src": "fontawesome"
+    },
+    {
+      "uid": "ea2d9a8c51ca42b38ef0d2a07f16d9a7",
+      "css": "chart-line",
+      "code": 61953,
+      "src": "fontawesome"
     }
   ]
 }

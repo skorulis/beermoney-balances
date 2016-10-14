@@ -26,6 +26,8 @@ function createEntries(sites,metaData) {
 
 	$("#balances").text("");
 
+	var alt = false;
+
 	sites.forEach(function (site) {
 		var meta = metaData[site.name];
 		var entries = site.entries;
@@ -34,9 +36,13 @@ function createEntries(sites,metaData) {
 		if (meta != undefined && meta.conversion != undefined) {
 			usdText = "$" + (balance / meta.conversion).toFixed(2);
 		}
-		sitesHtml += '<div class="site-balance">';
-		sitesHtml += '<div>';
-		sitesHtml += '<h2><a class="site-link" href="' + meta["url"] + '">'  + site["name"] + "</a> ";
+		var cls = alt ? "site-balance-alt" : "site-balance";
+		alt = !alt;
+		sitesHtml += '<div class="site-balance-common ' + cls + '">';
+		sitesHtml += '<h1 style="text-align:center"><a class="site-link" href="' + meta["url"] + '">'  + meta["name"] + "</a></h1>"; 
+		sitesHtml += '<div class="site-balance-inner">';
+		sitesHtml += '<div class="site-balance-left">';
+		sitesHtml += '<h2>Balance: ';
 		if (meta.conversion == 1) {
 			sitesHtml += usdText;
 		} else if(usdText.length > 0) {
@@ -49,8 +55,9 @@ function createEntries(sites,metaData) {
 		sitesHtml += "<p>Checked: " + jQuery.timeago(new Date(site.last * 1000)) + "</p>"
 		sitesHtml += '</div>';
 		if (meta != undefined && meta.url != undefined) {
-			sitesHtml += '<a class="update-link plain" href="' + meta.url + '" data-site="'+ site.name +'"><i class="plain icon-arrows-cw" style="color:#2c3e50" ></i></a>'
+			sitesHtml += '<a class="update-link plain" href="' + meta.url + '" data-site="'+ site.name +'"><i class="plain icon-arrows-cw" ></i></a>'
 		}
+		sitesHtml += '</div>';
 		sitesHtml += '</div>';
 	});
 
