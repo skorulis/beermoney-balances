@@ -82,6 +82,20 @@ footer {
 	align-items: center;
 }
 
+.footer-left {
+	display: flex;
+	flex-direction: column;
+	height: 40px;
+	line-height: 20px;
+}
+
+.footer-left * {
+	margin: 0;
+	padding: 0;
+	height: 20px;
+}
+
+
 @font-face {
   font-family: 'bmb';
   src: url('/font/bmb.eot?52430211');

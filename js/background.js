@@ -8,7 +8,6 @@ function getClientId(completion) {
 		completion(GA_CLIENT_ID);
 	} else {
 		chrome.storage.local.get("GA_CLIENT_ID",function(data) {
-			console.log(data);
 			if (Object.keys(data).length == 0) {
 				GA_CLIENT_ID = "" + Math.round(2147483647 * Math.random());
 				chrome.storage.local.set({GA_CLIENT_ID:GA_CLIENT_ID})
@@ -33,10 +32,8 @@ function logPage(pageName) {
 
 function sendGARequest(message) {
 	getClientId(function (cliendId) {
-		console.log("CLID " + cliendId);
 		var baseMessage = "v=1&tid=" + GA_TRACKING_ID + "&cid=" + GA_CLIENT_ID + "&aip=1&ds=add-on";
 		var fullMessage = baseMessage + message;
-		console.log(fullMessage);
 		var request = new XMLHttpRequest();
 		request.open("POST", "https://www.google-analytics.com/collect", true);
 		request.send(fullMessage);
