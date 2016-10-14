@@ -7,7 +7,7 @@ function reloadAll() {
 }
 
 function createEntries(sites,metaData) {
-	var innerHtml = "";
+	var sitesHtml = "";
 	if(sites.length == 0) {
 		$("#no-balances").show();
 		$("#balances").hide();
@@ -24,6 +24,8 @@ function createEntries(sites,metaData) {
 		return b.last - a.last;
 	});
 
+	$("#balances").text("");
+
 	sites.forEach(function (site) {
 		var meta = metaData[site.name];
 		var entries = site.entries;
@@ -32,26 +34,27 @@ function createEntries(sites,metaData) {
 		if (meta != undefined && meta.conversion != undefined) {
 			usdText = "$" + (balance / meta.conversion).toFixed(2);
 		}
-		innerHtml += '<div class="site-balance">';
-		innerHtml += '<div>';
-		innerHtml += '<h2><a class="site-link" href="' + meta["url"] + '">'  + site["name"] + "</a> ";
+		sitesHtml += '<div class="site-balance">';
+		sitesHtml += '<div>';
+		sitesHtml += '<h2><a class="site-link" href="' + meta["url"] + '">'  + site["name"] + "</a> ";
 		if (meta.conversion == 1) {
-			innerHtml += usdText;
+			sitesHtml += usdText;
 		} else if(usdText.length > 0) {
-			innerHtml += balance + " (" + usdText + ")";
+			sitesHtml += balance + " (" + usdText + ")";
 		} else {
-			innerHtml += balance;
+			sitesHtml += balance;
 		}
 
-		innerHtml += "</h2>";
-		innerHtml += "<p>Checked: " + jQuery.timeago(new Date(site.last * 1000)) + "</p>"
-		innerHtml += '</div>';
+		sitesHtml += "</h2>";
+		sitesHtml += "<p>Checked: " + jQuery.timeago(new Date(site.last * 1000)) + "</p>"
+		sitesHtml += '</div>';
 		if (meta != undefined && meta.url != undefined) {
-			innerHtml += '<a class="update-link plain" href="' + meta.url + '" data-site="'+ site.name +'"><i class="plain icon-arrows-cw" style="color:#2c3e50" ></i></a>'
+			sitesHtml += '<a class="update-link plain" href="' + meta.url + '" data-site="'+ site.name +'"><i class="plain icon-arrows-cw" style="color:#2c3e50" ></i></a>'
 		}
-		innerHtml += '</div>';
+		sitesHtml += '</div>';
 	});
-	$("#balances").html(innerHtml);
+
+	$("#balances").append($(sitesHtml));
 	setupLinks();
 }
 
