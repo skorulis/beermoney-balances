@@ -17,7 +17,11 @@ function createEntries(sites,metaData) {
 	}
 
 	sites = sites.filter(function(s) {
-		return s.entries.length > 0 && metaData[s.name] != undefined;
+		return s.entries != undefined && s.entries.length > 0 && metaData[s.name] != undefined;
+	});
+
+	sits = sites.sort(function(a,b) {
+		return b.last - a.last;
 	});
 
 	sites.forEach(function (site) {
@@ -65,7 +69,8 @@ $("#full-link").click(showFullPage);
 function updateBalance(event) {
 	var url = getEventHref(event);
 	var site = $(event.target).parent()[0].dataset.site;
-	ga('send', 'event', 'Update balance', site);
+	var action = "update-" + site;
+	chrome.runtime.sendMessage({message:"log-event",eventCategory:"update-balance",eventAction:action});
 	chrome.tabs.create({'url': url,active:false}, function(tab) {
 		chrome.runtime.sendMessage({message: "start-update",tab:tab.id,site:site});
     });
@@ -98,9 +103,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 function trackView() {
-	ga('send', 'pageview', "/popup.html");	
+	chrome.runtime.sendMessage({message:"log-page",pageName:"/popup.html"});
 }
 
-setTimeout(function() { trackView(); }, 1000);
+setTimeout(function() { trackView(); }, 300);
 reloadAll();
 replaceVersionNumber();

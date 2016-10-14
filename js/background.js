@@ -1,21 +1,58 @@
-// Standard Google Universal Analytics code
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); // Note: https protocol here
-
-ga('create', 'UA-23447195-4', 'auto');
-ga('set', 'checkProtocolTask', function(){}); // Removes failing protocol check. @see: http://stackoverflow.com/a/22152353/1958200
-ga('require', 'displayfeatures');
-
 var toClose = {};
 
+var GA_TRACKING_ID = 'UA-23447195-4';
+var GA_CLIENT_ID = undefined;
+
+function getClientId(completion) {
+	if (GA_CLIENT_ID != undefined) {
+		completion(GA_CLIENT_ID);
+	} else {
+		chrome.storage.local.get("GA_CLIENT_ID",function(data) {
+			console.log(data);
+			if (Object.keys(data).length == 0) {
+				GA_CLIENT_ID = "" + Math.round(2147483647 * Math.random());
+				chrome.storage.local.set({GA_CLIENT_ID:GA_CLIENT_ID})
+			} else {
+				GA_CLIENT_ID = data["GA_CLIENT_ID"];
+			}
+			completion(GA_CLIENT_ID);
+		});
+	}
+	
+}
+
+function logEvent(eventCategory,eventAction) {
+	var message = "&t=event&ec=" + eventCategory + "&ea=" + eventAction;
+	sendGARequest(message);
+}
+
+function logPage(pageName) {
+	var message = "&t=pageview&dh=extension&dp=" + pageName;
+	sendGARequest(message);
+}
+
+function sendGARequest(message) {
+	getClientId(function (cliendId) {
+		console.log("CLID " + cliendId);
+		var baseMessage = "v=1&tid=" + GA_TRACKING_ID + "&cid=" + GA_CLIENT_ID + "&aip=1&ds=add-on";
+		var fullMessage = baseMessage + message;
+		console.log(fullMessage);
+		var request = new XMLHttpRequest();
+		request.open("POST", "https://www.google-analytics.com/collect", true);
+		request.send(fullMessage);
+	});
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if(request.message == "start-update") {
+	if(request.message == "log-page") {
+		logPage(request.pageName);
+	} else if(request.message == "log-event") {
+		logEvent(request.eventCategory,request.eventAction);
+	} else if(request.message == "start-update") {
 		toClose[request.site] = request.tab;
 	} else if(request.message == "save") {
 		if (request.change != 0) {
-			ga('send', 'event', 'Change balance', request.site);	
+			logEvent("change-balance","change-" + request.site);
 		}
 		if(toClose[request.site] == sender.tab.id) {
 			toClose[request.site] = null;

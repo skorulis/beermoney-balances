@@ -6,6 +6,10 @@ readSiteDataArray(function (result) {
 		$("#export").attr("href",dataStr);
 		var graphs = $("#graphs");
 
+		result = result.filter(function(s) {
+			return s.entries != undefined && s.entries.length > 0 && meta[s.name] != undefined;
+		})
+
 		result.forEach(function(site) {
 			var m = meta[site.name];
 			site.entries.forEach(function(e) {
@@ -207,8 +211,6 @@ function deleteData(event) {
 			location.reload();
 		});
 	}
-	
-
 }
 
-ga('send', 'pageview', "/full.html");
+chrome.runtime.sendMessage({message:"log-page",pageName:"/full.html"});
