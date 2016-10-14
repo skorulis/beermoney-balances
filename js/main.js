@@ -34,6 +34,15 @@ function saveBalance(site,balance) {
 	});
 }
 
+function saveOptions(site,options) {
+	chrome.storage.local.get(site,function(record) {
+		record[site].options = options;
+		chrome.storage.local.set(record,function() {
+			chrome.runtime.sendMessage({message: "save-options",site:site,options});
+		});
+	});
+}
+
 function readSiteDataArray(completion) {
 	chrome.storage.local.get(function (data){
 		var sites = [];
@@ -88,6 +97,14 @@ function readAndSaveSimpleFloat(site,field) {
 		balance = balanceItem[0].innerText
 		saveBalance(site,parseFloat(balance));
 	}
+}
+
+function readDataAndMeta(completion) {
+	readSiteDataArray(function (sites) {
+		readMetaData(function(meta) {
+			completion(sites,meta);
+		});
+	});	
 }
 
 function replaceVersionNumber() {

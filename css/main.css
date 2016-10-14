@@ -56,6 +56,16 @@ h1 {
 	color: #2c3e50;
 }
 
+.site-options {
+	display: flex;
+	align-items: center;;
+	flex-direction: column;
+	background-color: #18bc9c;
+	margin: auto;
+	width: 300px;
+	color: #fff;
+}
+
 .graph-name {
 	text-align: center;
 }
@@ -159,7 +169,6 @@ a.plain {
 	text-decoration-color:#2c3e50;
 }
 
-
 .icon-arrows-cw:before { content: '\e800'; } /* '' */
 .icon-beer:before { content: '\e801'; } /* '' */
 .icon-money:before { content: '\e802'; } /* '' */
@@ -167,6 +176,7 @@ a.plain {
 .icon-star-empty:before { content: '\e804'; } /* '' */
 .icon-home:before { content: '\e805'; } /* '' */
 .icon-trash-empty:before { content: '\e806'; } /* '' */
+.icon-wrench:before { content: '\e807'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-dollar:before { content: '\f155'; } /* '' */
 .icon-chart-line:before { content: '\f201'; } /* '' */

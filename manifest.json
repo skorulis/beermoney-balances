@@ -1,10 +1,11 @@
 {
   "manifest_version": 2,
   "name": "Beermoney Balances",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "author":"Alex Skorulis",
   "short_name":"BMB",
   "homepage_url":"http://beermoneybalances.skorulis.com/",
+  "options_page":"options.html",
   "background": {
     "scripts": ["js/background.js"]
   },

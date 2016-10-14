@@ -41,7 +41,9 @@ function sendGARequest(message) {
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if(request.message == "log-page") {
+	if (request.message == "save-options") {
+		logEvent("save-options","save-options-" + request.site);
+	} else if(request.message == "log-page") {
 		logPage(request.pageName);
 	} else if(request.message == "log-event") {
 		logEvent(request.eventCategory,request.eventAction);

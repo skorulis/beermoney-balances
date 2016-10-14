@@ -1,11 +1,3 @@
-function reloadAll() {
-	readSiteDataArray(function (sites) {
-		readMetaData(function(meta) {
-			createEntries(sites,meta);
-		});
-	});	
-}
-
 function createEntries(sites,metaData) {
 	var sitesHtml = "";
 	if(sites.length == 0) {
@@ -20,7 +12,7 @@ function createEntries(sites,metaData) {
 		return s.entries != undefined && s.entries.length > 0 && metaData[s.name] != undefined;
 	});
 
-	sits = sites.sort(function(a,b) {
+	sites = sites.sort(function(a,b) {
 		return b.last - a.last;
 	});
 
@@ -117,5 +109,5 @@ function trackView() {
 }
 
 setTimeout(function() { trackView(); }, 300);
-reloadAll();
+readDataAndMeta(createEntries);
 replaceVersionNumber();

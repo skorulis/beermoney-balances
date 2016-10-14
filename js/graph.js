@@ -1,66 +1,63 @@
 replaceVersionNumber();
 
-readSiteDataArray(function (result) {
-	readMetaData(function(meta) {
-		var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
-		$("#export").attr("href",dataStr);
-		var graphs = $("#graphs");
+function createAllGraphs(result,meta) {
+	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+	$("#export").attr("href",dataStr);
+	var graphs = $("#graphs");
 
-		result = result.filter(function(s) {
-			return s.entries != undefined && s.entries.length > 0 && meta[s.name] != undefined;
-		})
+	result = result.filter(function(s) {
+		return s.entries != undefined && s.entries.length > 0 && meta[s.name] != undefined;
+	})
 
-		result.forEach(function(site) {
-			var m = meta[site.name];
-			site.entries.forEach(function(e) {
-				e.date = new Date(e.t*1000);
-				e.usd = e.b / m.conversion;
-			});
+	result.forEach(function(site) {
+		var m = meta[site.name];
+		site.entries.forEach(function(e) {
+			e.date = new Date(e.t*1000);
+			e.usd = e.b / m.conversion;
 		});
-
-		var total = result.reduce(function(cur,site) {
-			if (site.entries.length == 0) {
-				return cur;
-			}
-			var usd = site.entries[site.entries.length - 1].usd;
-			return cur + usd;
-		},0);
-
-		if(result.length > 1) {
-			var withValues = result.filter(function(x) {
-				return x.entries.length > 0 && meta[x.name] != undefined;
-			});
-
-			graphs.append('<h2 class="graph-name">All site balances, $' + total.toFixed(2) + ' outstanding</h2>');
-			graphs.append('<svg id="graph-all" width="960" height="500"></svg>');
-			createGraph(withValues,meta,true);
-			createHistory(result,meta,graphs,true);
-			graphs.append("<hr>")	
-		}
-
-		result.forEach(function(site) {
-			var html =  '<h1 class="graph-name">';
-			html += site.name+ ' <button class="delete" id="delete-' + site.name + '"><i class="icon-trash-empty"> </i> delete site data</button>';
-			html += "</h1>";
-
-			graphs.append(html);
-			if (site.entries.length > 1 && meta[site.name] != undefined) {
-				var id = "graph-" + site.name;
-				
-				graphs.append('<svg id="'+ id + '" width="960" height="500"></svg>');
-				createGraph([site],meta, false);
-			}
-			if (meta[site.name] != undefined) {
-				createHistory([site],meta,graphs,false);	
-			}
-			
-			graphs.append("<hr>")	
-		});
-
-		$("button.delete").click(deleteData);
 	});
-	
-});
+
+	var total = result.reduce(function(cur,site) {
+		if (site.entries.length == 0) {
+			return cur;
+		}
+		var usd = site.entries[site.entries.length - 1].usd;
+		return cur + usd;
+	},0);
+
+	if(result.length > 1) {
+		var withValues = result.filter(function(x) {
+			return x.entries.length > 0 && meta[x.name] != undefined;
+		});
+
+		graphs.append('<h2 class="graph-name">All site balances, $' + total.toFixed(2) + ' outstanding</h2>');
+		graphs.append('<svg id="graph-all" width="960" height="500"></svg>');
+		createGraph(withValues,meta,true);
+		createHistory(result,meta,graphs,true);
+		graphs.append("<hr>")	
+	}
+
+	result.forEach(function(site) {
+		var html =  '<h1 class="graph-name">';
+		html += site.name+ ' <button class="delete" id="delete-' + site.name + '"><i class="icon-trash-empty"> </i> delete site data</button>';
+		html += "</h1>";
+
+		graphs.append(html);
+		if (site.entries.length > 1 && meta[site.name] != undefined) {
+			var id = "graph-" + site.name;
+			
+			graphs.append('<svg id="'+ id + '" width="960" height="500"></svg>');
+			createGraph([site],meta, false);
+		}
+		if (meta[site.name] != undefined) {
+			createHistory([site],meta,graphs,false);	
+		}
+		
+		graphs.append("<hr>")	
+	});
+
+	$("button.delete").click(deleteData);
+}
 
 function createHistory(siteList,allMeta,element,useUSD) {
 	var innerHtml = '<h2 style="text-align:center">Earnings</h2>';
@@ -212,5 +209,8 @@ function deleteData(event) {
 		});
 	}
 }
+
+
+readDataAndMeta(createAllGraphs);
 
 chrome.runtime.sendMessage({message:"log-page",pageName:"/full.html"});
