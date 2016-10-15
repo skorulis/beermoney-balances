@@ -3,6 +3,8 @@ var toClose = {};
 var GA_TRACKING_ID = 'UA-23447195-4';
 var GA_CLIENT_ID = undefined;
 
+var autoUpdateTabId = undefined;
+
 function getClientId(completion) {
 	if (GA_CLIENT_ID != undefined) {
 		completion(GA_CLIENT_ID);
@@ -39,6 +41,44 @@ function sendGARequest(message) {
 		request.send(fullMessage);
 	});
 }
+
+function checkAutoUpdates() {
+	console.log("Check auto updates");
+	chrome.storage.local.get(function (data){
+		var timestamp = Math.floor(Date.now() / 1000);
+		var toUpdate = [];
+		for (var key in data) {
+			var site = data[key];
+			site.name = key;
+			if(site.options && site.options.autoRefresh > 0) {
+				var diff = timestamp - site.last
+				if (diff > site.options.autoRefresh * 60) {
+					toUpdate.push(site);
+				}
+			}
+		}
+		if(toUpdate.length > 0) {
+			performAutoUpdates(toUpdate);
+		}
+	});
+
+	setTimeout(checkAutoUpdates,30000);
+}
+
+function performAutoUpdates(sites) {
+	console.log(sites);
+	if(autoUpdateTabId != undefined) {
+		chrome.tabs.get(autoUpdateTabId,function(tab) {
+			console.log(tab);
+		});
+	} else {
+		chrome.tabs.create({'url': "/auto.html",active:false},function(tab) {
+			console.log("Create " + tab);
+		});
+	}
+}
+
+checkAutoUpdates();
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	if (request.message == "save-options") {
