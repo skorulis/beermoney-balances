@@ -46,10 +46,16 @@ function saveOptions(site,options) {
 function readSiteDataArray(completion) {
 	chrome.storage.local.get(function (data){
 		var sites = [];
+		var other = {};
 		for (var key in data) {
 			var site = data[key];
-			site["name"] = key;
-			sites.push(site);
+			if(site.entries != undefined) {
+				site["name"] = key;
+				sites.push(site);	
+			} else {
+				other[key] = site;
+			}
+			
 		}
 		sites.sort(function(a,b) {
 			if (a.last > b.last) {
@@ -59,7 +65,7 @@ function readSiteDataArray(completion) {
 			}
 			return 0;
 		});
-		completion(sites);
+		completion(sites,other);
 	});
 }
 
@@ -100,9 +106,9 @@ function readAndSaveSimpleFloat(site,field) {
 }
 
 function readDataAndMeta(completion) {
-	readSiteDataArray(function (sites) {
+	readSiteDataArray(function (sites,other) {
 		readMetaData(function(meta) {
-			completion(sites,meta);
+			completion(sites,meta,other);
 		});
 	});	
 }

@@ -1,4 +1,4 @@
-function createEntries(sites,metaData) {
+function createEntries(sites,metaData,other) {
 	var sitesHtml = "";
 	if(sites.length == 0) {
 		$("#no-balances").show();

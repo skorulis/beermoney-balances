@@ -1,6 +1,6 @@
 replaceVersionNumber();
 
-function createAllGraphs(result,meta) {
+function createAllGraphs(result,meta,other) {
 	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
 	$("#export").attr("href",dataStr);
 	var graphs = $("#graphs");

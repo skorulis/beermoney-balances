@@ -44,7 +44,10 @@ function sendGARequest(message) {
 }
 
 function checkAutoUpdates() {
-	readDataAndMeta(function(sites,metaData) {
+	readDataAndMeta(function(sites,metaData,other) {
+		if(!other.options.autoEnabled) {
+			return;
+		}
 		var timestamp = Math.floor(Date.now() / 1000);
 		var toUpdate = [];
 		sites.forEach(function(site) {
@@ -65,7 +68,7 @@ function checkAutoUpdates() {
 	setTimeout(checkAutoUpdates,30000);
 }
 
-function performAutoUpdates() {
+function performAutoUpdates(site) {
 	getAutoUpdateTab(function(tab) {
 		if (autoUpdateSites.length > 0) {
 			var site = autoUpdateSites[0];
@@ -76,6 +79,17 @@ function performAutoUpdates() {
 		
 	});
 }
+
+function sendNoPointsMessage(site) {
+	console.log("No points");
+	var url = "https://maker.ifttt.com/trigger/beermoney-no-points/with/key/c-sPwPCCOmjBfgJ5VyjsH-";
+	var message = {site:site};
+	var request = new XMLHttpRequest();
+	request.open("POST", url, true);
+	request.send(message);
+}
+
+sendNoPointsMessage();
 
 function getAutoUpdateTab(callback) {
 	if(autoUpdateTabId != undefined) {

@@ -1,4 +1,13 @@
-function generateOptions(sites,metaData) {
+var options;
+
+function generateOptions(sites,metaData,other) {
+	console.log(sites);
+	options = other["options"];
+	if(options == undefined) {
+		options = {autoEnabled:true};
+		chrome.storage.local.set({options:options});
+	}
+
 	sites = sites.filter(function(s) {
 		return s.entries != undefined && s.entries.length > 0 && metaData[s.name] != undefined;
 	});
@@ -13,17 +22,20 @@ function generateOptions(sites,metaData) {
 		var html = '<div class="site-options">';
 		var value = site.options ? site.options.autoRefresh : 0;
 		html += '<h1 style="text-align:center"><a class="site-link" href="' + meta["url"] + '">'  + meta["name"] + "</a></h1>";
-		html += '<form class="opt" id="form-' + site.name + '" action="#">'
-		html += '<label for="update-freq">Auto update frequency (minutes)</label><br/>'
+		html += '<form class="opt" id="form-' + site.name + '" action="#">';
+		html += '<label for="update-freq">Auto update frequency (minutes)</label><br/>';
 		html += '<input min="0" step="5" name="update-freq" type="number" value="' + value +'" >';
-		//html += '<input type="submit" value="save" onclick="saveForm(this)">'
-		html += '<br/><button>Save</button>';
-		html += '</form>'
+		html += '<br/><button class="site-save">Save</button>';
+		html += '</form>';
 		html += '</div>';
 		$("#main").append(html);
 	});
 
-	$("button").click(saveForm);
+	$("button.site-save").click(saveForm);
+	$("#opt-auto-enabled").click(updateAutoEnabled);
+	$("#opt-notify-enabled").click(updateNotifyEnabled);
+	$("#opt-auto-enabled").prop("checked",options.autoEnabled);
+	$("#opt-notify-enabled").prop("checked",options.notifyEnabled);
 }
 
 function saveForm(event) {
@@ -34,7 +46,7 @@ function saveForm(event) {
 	console.log(site);
 	
 	var updateFreq = parseInt(form["update-freq"].value);
-	if (updateFreq < 0) {
+	if (updateFreq <= 0) {
 		updateFreq = 0;
 	} else if (updateFreq < 5) {
 		updateFreq = 5;
@@ -45,6 +57,16 @@ function saveForm(event) {
 	saveOptions(site,options);
 
 	return false;
+}
+
+function updateAutoEnabled(event) {
+	options.autoEnabled = event.target.checked;
+	chrome.storage.local.set({options:options});
+}
+
+function updateNotifyEnabled(event) {
+	options.notifyEnabled = event.target.checked;
+	chrome.storage.local.set({options:options});
 }
 
 readDataAndMeta(generateOptions);
