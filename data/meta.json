@@ -118,6 +118,12 @@
 		"url":"http://app.irazoo.com/",
 		"name":"iRazoo",
 		"fractions":false
+	},
+	"grindabuck": {
+		"conversion": 100,
+		"url":"http://grindabuck.com/acc",
+		"name":"GrindaBuck",
+		"fractions":false
 	}
 
 

@@ -144,6 +144,12 @@
 	  		"*://app.irazoo.com/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/irazoo.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://grindabuck.com/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/grindabuck.js"]
 	  }
 
 
