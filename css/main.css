@@ -61,7 +61,7 @@ h1 {
 	align-items: center;;
 	flex-direction: column;
 	background-color: #18bc9c;
-	margin: auto;
+	margin: 5px auto;
 	width: 300px;
 	color: #fff;
 }

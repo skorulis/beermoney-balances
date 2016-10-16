@@ -4,6 +4,7 @@ var GA_TRACKING_ID = 'UA-23447195-4';
 var GA_CLIENT_ID = undefined;
 
 var autoUpdateTabId = undefined;
+var autoUpdateSites = [];
 
 function getClientId(completion) {
 	if (GA_CLIENT_ID != undefined) {
@@ -43,37 +44,54 @@ function sendGARequest(message) {
 }
 
 function checkAutoUpdates() {
-	console.log("Check auto updates");
-	chrome.storage.local.get(function (data){
+	readDataAndMeta(function(sites,metaData) {
 		var timestamp = Math.floor(Date.now() / 1000);
 		var toUpdate = [];
-		for (var key in data) {
-			var site = data[key];
-			site.name = key;
+		sites.forEach(function(site) {
+			var meta = metaData[site.name];
 			if(site.options && site.options.autoRefresh > 0) {
 				var diff = timestamp - site.last
 				if (diff > site.options.autoRefresh * 60) {
-					toUpdate.push(site);
+					toUpdate.push(meta.url);
 				}
 			}
-		}
+		});
+		autoUpdateSites = toUpdate;
 		if(toUpdate.length > 0) {
-			performAutoUpdates(toUpdate);
+			performAutoUpdates();
 		}
 	});
 
 	setTimeout(checkAutoUpdates,30000);
 }
 
-function performAutoUpdates(sites) {
-	console.log(sites);
+function performAutoUpdates() {
+	getAutoUpdateTab(function(tab) {
+		if (autoUpdateSites.length > 0) {
+			var site = autoUpdateSites[0];
+			chrome.tabs.update(tab.id,{url:site});	
+		} else {
+			chrome.tabs.update(tab.id,{url:"/auto.html"});
+		}
+		
+	});
+}
+
+function getAutoUpdateTab(callback) {
 	if(autoUpdateTabId != undefined) {
 		chrome.tabs.get(autoUpdateTabId,function(tab) {
-			console.log(tab);
+			if (chrome.runtime.lastError) {
+				autoUpdateTabId = undefined;
+				getAutoUpdateTab(callback);
+			} else {
+				callback(tab);	
+			}
+			
 		});
 	} else {
 		chrome.tabs.create({'url': "/auto.html",active:false},function(tab) {
-			console.log("Create " + tab);
+			autoUpdateTabId = tab.id;
+			callback(tab);
 		});
 	}
 }
@@ -96,6 +114,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		if(toClose[request.site] == sender.tab.id) {
 			toClose[request.site] = null;
 			chrome.tabs.remove(sender.tab.id);	
+		}
+		if(sender.tab.id == autoUpdateTabId) {
+			autoUpdateSites.shift();
+			performAutoUpdates();
 		}
 		
 	}
