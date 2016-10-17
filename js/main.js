@@ -117,3 +117,17 @@ function replaceVersionNumber() {
 	var manifestData = chrome.runtime.getManifest();
 	$("#version").text("version: " + manifestData.version);
 }
+
+function sendNoPointsMessage(siteName,lastUpdate) {
+	chrome.storage.local.get("options",function(options) {
+		var key = options.options.makerKey;
+		var url = "https://maker.ifttt.com/trigger/beermoney-no-points/with/key/" + key;
+		var timeString = jQuery.timeago(new Date(lastUpdate*1000));
+		var message = {value1:siteName,value2:timeString};
+		var request = new XMLHttpRequest();
+		request.open("POST", url, true);
+		request.setRequestHeader("Content-type", "application/json");
+		request.send(JSON.stringify(message));
+	});
+	
+}

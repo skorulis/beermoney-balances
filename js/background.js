@@ -80,15 +80,6 @@ function performAutoUpdates(site) {
 	});
 }
 
-function sendNoPointsMessage(site) {
-	console.log("No points");
-	var url = "https://maker.ifttt.com/trigger/beermoney-no-points/with/key/c-sPwPCCOmjBfgJ5VyjsH-";
-	var message = {site:site};
-	var request = new XMLHttpRequest();
-	request.open("POST", url, true);
-	request.send(message);
-}
-
 sendNoPointsMessage();
 
 function getAutoUpdateTab(callback) {

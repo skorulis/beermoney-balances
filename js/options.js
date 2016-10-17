@@ -36,6 +36,11 @@ function generateOptions(sites,metaData,other) {
 	$("#opt-notify-enabled").click(updateNotifyEnabled);
 	$("#opt-auto-enabled").prop("checked",options.autoEnabled);
 	$("#opt-notify-enabled").prop("checked",options.notifyEnabled);
+
+	$("#opt-maker-key").prop("value",options.makerKey);
+
+	$("#send-test").click(sendTestNotification);
+	$("#opt-main-save").click(saveMainOptions);
 }
 
 function saveForm(event) {
@@ -66,6 +71,21 @@ function updateAutoEnabled(event) {
 
 function updateNotifyEnabled(event) {
 	options.notifyEnabled = event.target.checked;
+	chrome.storage.local.set({options:options});
+}
+
+function sendTestNotification(event) {
+	saveMainOptions(event);
+	event.preventDefault();
+	sendNoPointsMessage("EXAMPLE",new Date().getTime()/1000);
+	return false;
+}
+
+function saveMainOptions(event) {
+	event.preventDefault();
+	var form = $(event.target).parent()[0];
+	options.makerKey = form["maker-key"].value;
+	console.log(options.makerKey);
 	chrome.storage.local.set({options:options});
 }
 
