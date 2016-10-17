@@ -21,11 +21,18 @@ function generateOptions(sites,metaData,other) {
 		var meta = metaData[site.name];
 		var html = '<div class="site-options">';
 		var value = site.options ? site.options.autoRefresh : 0;
+		var notifyValue = site.options ? site.options.notifyTime : 0;
 		html += '<h1 style="text-align:center"><a class="site-link" href="' + meta["url"] + '">'  + meta["name"] + "</a></h1>";
-		html += '<form class="opt" id="form-' + site.name + '" action="#">';
-		html += '<label for="update-freq">Auto update frequency (minutes)</label><br/>';
+		html += '<form class="opt pure-form pure-form-aligned" id="form-' + site.name + '" action="#">';
+		html += '<div class="pure-control-group">';
+		html += '<label for="update-freq">Auto update frequency (minutes)</label>';
 		html += '<input min="0" step="5" name="update-freq" type="number" value="' + value +'" >';
-		html += '<br/><button class="site-save">Save</button>';
+		html += '</div>';
+		html += '<div class="pure-control-group">';
+		html += '<label for="notification-freq">Notify period (minutes)</label>';
+		html += '<input min="0" step="10" name="notification-freq" type="number" value="' + notifyValue +'" >';
+		html += '</div>';
+		html += '<button class="site-save btn-outline">Save</button>';
 		html += '</form>';
 		html += '</div>';
 		$("#main").append(html);
@@ -51,17 +58,23 @@ function saveForm(event) {
 	console.log(site);
 	
 	var updateFreq = parseInt(form["update-freq"].value);
-	if (updateFreq <= 0) {
-		updateFreq = 0;
-	} else if (updateFreq < 5) {
-		updateFreq = 5;
-	}
-	console.log(updateFreq);
+	var notifyTime = parseInt(form["notification-freq"].value);
+	updateFreq = snapValue(updateFreq,5);
+	notifyTime = snapValue(notifyTime,10);
 
-	var options = {autoRefresh:updateFreq};
+	var options = {autoRefresh:updateFreq,notifyTime:notifyTime};
 	saveOptions(site,options);
 
 	return false;
+}
+
+function snapValue(value,min) {
+	if (value <= 0) {
+		value = 0;
+	} else if (value < min) {
+		value = min;
+	}
+	return value;
 }
 
 function updateAutoEnabled(event) {
@@ -76,14 +89,26 @@ function updateNotifyEnabled(event) {
 
 function sendTestNotification(event) {
 	saveMainOptions(event);
+	if(options.makerKey.length == 0) {
+		alert("Cannot test notifications without setting up your IFTTT maker key");
+		return;
+	}
 	event.preventDefault();
-	sendNoPointsMessage("EXAMPLE",new Date().getTime()/1000);
+	sendNoPointsMessage("EXAMPLE",new Date().getTime()/1000,function(error) {
+		if(error) {
+			alert("Something went wrong with the IFTTT notification test, make sure your maker key is entered correctly");	
+		} else {
+			alert("Notification successfully sent");
+		}
+		
+	});
 	return false;
 }
 
 function saveMainOptions(event) {
 	event.preventDefault();
-	var form = $(event.target).parent()[0];
+	var form = $(event.target).parent().parent()[0];
+	console.log(form);
 	options.makerKey = form["maker-key"].value;
 	console.log(options.makerKey);
 	chrome.storage.local.set({options:options});

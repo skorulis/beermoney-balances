@@ -4,7 +4,10 @@
 	<script src="js/d3.v4.min.js"></script>
 	<script src="js/jquery.timeago.js"></script>
 	<script src="js/main.js"></script>
+	<link rel="stylesheet" href="css/pure/base-min.css">
+	<link rel="stylesheet" href="css/pure/forms-min.css">
 	<link rel="stylesheet" href="css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Options</title>
 </head>
 <body>
@@ -13,14 +16,26 @@
 	</header>
 
 	<div class="site-options" >
-		<form>
-			<input id="opt-auto-enabled" type="checkbox" >Enable auto updates<br/>
-			<input id="opt-notify-enabled" type="checkbox" >Enable notifications<br/>
+		<h1 style="color:#fff">General</h1>
+		<form class="pure-form pure-form-aligned">
+			<div class="pure-control-group">
+				<label for="auto-enabled">Enable auto updates</label>
+				<input id="opt-auto-enabled" name="auto-enabled" type="checkbox" >
+			</div>
+			<div class="pure-control-group">
+				<label for="notify-enabled" >Enable notifications</label>
+				<input id="opt-notify-enabled" name="notify-enabled" type="checkbox" >
+			</div>
 
-			<label for="maker-key">IFTTT maker key</label><br/>
-			<input id="opt-maker-key" name="maker-key" type="text">
-			<br/><button id="opt-main-save">Save</button>
-			<br/><button id="send-test">Send test notification</button>
+			<div class="pure-control-group">
+				<label for="maker-key"><a href="https://internal-api.ifttt.com/maker">IFTTT maker</a> key</label>
+				<input id="opt-maker-key" name="maker-key" type="text">
+			</div>
+			 <div style="margin:auto;">
+			 	<button class="btn-outline" id="opt-main-save">Save</button>
+				<button class="btn-outline" id="send-test">Send test notification</button>
+			 </div>
+			
 		</form>
 	</div>
 

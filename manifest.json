@@ -7,7 +7,7 @@
   "homepage_url":"http://beermoneybalances.skorulis.com/",
   "options_page":"options.html",
   "background": {
-    "scripts": ["js/main.js","js/background.js"]
+    "scripts": ["js/jquery-3.1.1.slim.min.js","js/jquery.timeago.js","js/main.js","js/background.js"]
   },
   "applications": {
   	"gecko": {

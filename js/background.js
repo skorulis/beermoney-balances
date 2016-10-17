@@ -45,6 +45,7 @@ function sendGARequest(message) {
 
 function checkAutoUpdates() {
 	readDataAndMeta(function(sites,metaData,other) {
+		checkNotifications(sites,other);
 		if(!other.options.autoEnabled) {
 			return;
 		}
@@ -65,8 +66,32 @@ function checkAutoUpdates() {
 		}
 	});
 
-	setTimeout(checkAutoUpdates,30000);
+	setTimeout(checkAutoUpdates,300000);
 }
+
+function checkNotifications(sites,other) {
+	if(!other.options.notifyEnabled || other.options.makerKey == undefined) {
+		return;
+	}
+	var timestamp = Math.floor(Date.now() / 1000);
+	sites = sites.filter(function(site) {
+		return site.entries.length > 0 && site.options != undefined && site.options.notifyTime != undefined && site.options.notifyTime > 0;
+	});
+
+	sites.forEach(function(site) {
+		var last = site.entries[site.entries.length - 1].t;
+		if (timestamp - last > site.options.notifyTime * 60) {
+			if(site.lastNotification == undefined || site.lastNotification < last) {
+				site.lastNotification = timestamp;
+				var obj = {};
+				obj[site.name] = site;
+				chrome.storage.local.set(obj);
+				console.log(site);
+				sendNoPointsMessage(site.name,timestamp);
+			}
+		}
+	});
+} 
 
 function performAutoUpdates(site) {
 	getAutoUpdateTab(function(tab) {

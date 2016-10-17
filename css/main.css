@@ -62,8 +62,32 @@ h1 {
 	flex-direction: column;
 	background-color: #18bc9c;
 	margin: 5px auto;
-	width: 300px;
+	width: 320px;
+	font-size: 100%;
+}
+
+label {
 	color: #fff;
+} 
+
+.btn-outline {
+	width: 100%;
+	border-radius: 5px;
+    margin-top: 15px;
+    border: solid 2px #fff;
+    font-size: 20px;
+    color: #fff;
+    background: 0 0;
+    transition: all .3s ease-in-out;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+    border: solid 2px #fff;
+    color: #18bc9c;
+    background: #fff;
 }
 
 .graph-name {

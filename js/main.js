@@ -118,7 +118,7 @@ function replaceVersionNumber() {
 	$("#version").text("version: " + manifestData.version);
 }
 
-function sendNoPointsMessage(siteName,lastUpdate) {
+function sendNoPointsMessage(siteName,lastUpdate,completion) {
 	chrome.storage.local.get("options",function(options) {
 		var key = options.options.makerKey;
 		var url = "https://maker.ifttt.com/trigger/beermoney-no-points/with/key/" + key;
@@ -128,6 +128,18 @@ function sendNoPointsMessage(siteName,lastUpdate) {
 		request.open("POST", url, true);
 		request.setRequestHeader("Content-type", "application/json");
 		request.send(JSON.stringify(message));
+		if(completion) {
+			request.onreadystatechange = function() {
+				if(request.readyState == 4) {
+					if(request.status >= 400) {
+						completion(request.statusText);
+					} else {
+						completion(null);
+					}
+				}
+			}
+		}
+		
 	});
 	
 }
