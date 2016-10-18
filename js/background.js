@@ -69,6 +69,16 @@ function checkAutoUpdates() {
 	setTimeout(checkAutoUpdates,300000);
 }
 
+function lastChange(site) {
+	var max = site.entries[site.entries.length - 1].t;
+	if (site.secondaryBalances) {
+		for(key in site.secondaryBalances) {
+			max = Math.max(site.secondaryBalances[key].t,max);
+		}
+	}
+	return max;
+}
+
 function checkNotifications(sites,other) {
 	if(!other.options.notifyEnabled || other.options.makerKey == undefined) {
 		return;
@@ -79,15 +89,14 @@ function checkNotifications(sites,other) {
 	});
 
 	sites.forEach(function(site) {
-		var last = site.entries[site.entries.length - 1].t;
+		var last = lastChange(site);
 		if (timestamp - last > site.options.notifyTime * 60) {
 			if(site.lastNotification == undefined || site.lastNotification < last) {
 				site.lastNotification = timestamp;
 				var obj = {};
 				obj[site.name] = site;
 				chrome.storage.local.set(obj);
-				console.log(site);
-				sendNoPointsMessage(site.name,timestamp);
+				sendNoPointsMessage(site.name,last);
 			}
 		}
 	});
@@ -104,8 +113,6 @@ function performAutoUpdates(site) {
 		
 	});
 }
-
-sendNoPointsMessage();
 
 function getAutoUpdateTab(callback) {
 	if(autoUpdateTabId != undefined) {

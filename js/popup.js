@@ -44,7 +44,20 @@ function createEntries(sites,metaData,other) {
 		}
 
 		sitesHtml += "</h2>";
-		sitesHtml += "<p>Checked: " + jQuery.timeago(new Date(site.last * 1000)) + "</p>"
+
+		sitesHtml += "<p>Last checked: " + jQuery.timeago(new Date(site.last * 1000)) + "</p>";
+		if(site.entries.length > 0) {
+			var lastEntry = site.entries[site.entries.length - 1]
+			sitesHtml += "<p>Last balance change: " + jQuery.timeago(new Date(lastEntry.t * 1000)) + "</p>"
+		}
+		if(site.secondaryBalances != undefined) {
+			sitesHtml += "<br/>"
+			for(var key in site.secondaryBalances) {
+				var date = new Date(site.last * 1000);
+				sitesHtml += '<p>' + key + ": <b>" + site.secondaryBalances[key].v + "</b> " + jQuery.timeago(date) + '</p>';
+			}
+		}
+		
 		sitesHtml += '</div>';
 		if (meta != undefined && meta.url != undefined) {
 			sitesHtml += '<a class="update-link plain" href="' + meta.url + '" data-site="'+ site.name +'"><i class="plain icon-arrows-cw" ></i></a>'

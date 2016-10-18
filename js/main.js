@@ -11,8 +11,7 @@ function saveBalance(site,balance) {
 	
 	chrome.storage.local.get(site,function(record) {
 		if (record[site] == undefined) {
-			record = {};
-			record[site] = {entries:[],"last":0};
+			record = createEmptyRecord(site);
 		}
 		var entries = record[site].entries;
 		var last = entries[entries.length - 1];
@@ -31,6 +30,35 @@ function saveBalance(site,balance) {
 		chrome.storage.local.set(record,function() {
 			chrome.runtime.sendMessage({message: "save",site:site,balance:balance,change:change});
 		});
+	});
+}
+
+function createEmptyRecord(site) {
+	var record = {};
+	record[site] = {entries:[],"last":0};
+	return record;
+}
+
+function saveSecondaryBalance(site,balanceName,value) {
+	var timestamp = Math.floor(Date.now() / 1000);
+	chrome.storage.local.get(site,function(record) {
+		if (record[site] == undefined) {
+			record = createEmptyRecord(site);
+		}
+		if(record[site].secondaryBalances == undefined) {
+			record[site].secondaryBalances = {};
+		}
+		var existing = record[site].secondaryBalances[balanceName];
+		if(existing == undefined) {
+			existing = {"v":0,t:0};
+		}
+		if (existing.v != value) {
+			existing.v = value;
+			existing.t = timestamp;
+		}
+		console.log(record)
+		record[site].secondaryBalances[balanceName] = existing;
+		chrome.storage.local.set(record);
 	});
 }
 
