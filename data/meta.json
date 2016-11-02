@@ -84,7 +84,7 @@
 		"fractions":false
 	},
 	"freebitco-in": {
-		"conversion": 618,
+		"conversion": 0.0016,
 		"url":"https://freebitco.in",
 		"name":"Free bitcoin",
 		"fractions":true

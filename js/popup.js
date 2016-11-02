@@ -53,8 +53,9 @@ function createEntries(sites,metaData,other) {
 		if(site.secondaryBalances != undefined) {
 			sitesHtml += "<br/>"
 			for(var key in site.secondaryBalances) {
-				var date = new Date(site.last * 1000);
-				sitesHtml += '<p>' + key + ": <b>" + site.secondaryBalances[key].v + "</b> " + jQuery.timeago(date) + '</p>';
+				var item = site.secondaryBalances[key];
+				var date = new Date(item.t * 1000);
+				sitesHtml += '<p>' + key + ": <b>" + item.v + "</b> " + jQuery.timeago(date) + '</p>';
 			}
 		}
 		

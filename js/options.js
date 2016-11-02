@@ -1,3 +1,5 @@
+replaceVersionNumber();
+
 var options;
 
 function generateOptions(sites,metaData,other) {
@@ -29,7 +31,7 @@ function generateOptions(sites,metaData,other) {
 		html += '<input min="0" step="5" name="update-freq" type="number" value="' + value +'" >';
 		html += '</div>';
 		html += '<div class="pure-control-group">';
-		html += '<label for="notification-freq">Notify period (minutes)</label>';
+		html += '<label for="notification-freq">Inactivity notification period (minutes)</label>';
 		html += '<input min="0" step="10" name="notification-freq" type="number" value="' + notifyValue +'" >';
 		html += '</div>';
 		html += '<button class="site-save btn-outline">Save</button>';
