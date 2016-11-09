@@ -150,8 +150,9 @@ function sendNoPointsMessage(siteName,lastUpdate,completion) {
 	chrome.storage.local.get("options",function(options) {
 		var key = options.options.makerKey;
 		var url = "https://maker.ifttt.com/trigger/beermoney-no-points/with/key/" + key;
+		var uid = Math.random() * 100000;
 		var timeString = jQuery.timeago(new Date(lastUpdate*1000));
-		var message = {value1:siteName,value2:timeString};
+		var message = {value1:siteName,value2:timeString,value3:uid};
 		var request = new XMLHttpRequest();
 		request.open("POST", url, true);
 		request.setRequestHeader("Content-type", "application/json");

@@ -1,1 +1,1 @@
-readAndSaveSimpleInt("grindabuck",'a.pull-left[href="acc"]:nth-child(3)')
+readAndSaveSimpleFloat("grindabuck",'a.pull-left[href="acc"]:nth-child(3)')

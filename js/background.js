@@ -5,6 +5,7 @@ var GA_CLIENT_ID = undefined;
 
 var autoUpdateTabId = undefined;
 var autoUpdateSites = [];
+var lastNotificationCheck = 0;
 
 function getClientId(completion) {
 	if (GA_CLIENT_ID != undefined) {
@@ -80,10 +81,15 @@ function lastChange(site) {
 }
 
 function checkNotifications(sites,other) {
+	var timestamp = Math.floor(Date.now() / 1000);
+	if(timestamp - lastNotificationCheck < 300) {
+		return;
+	}
+	lastNotificationCheck = timestamp;
 	if(!other.options.notifyEnabled || other.options.makerKey == undefined) {
 		return;
 	}
-	var timestamp = Math.floor(Date.now() / 1000);
+	
 	sites = sites.filter(function(site) {
 		return site.entries.length > 0 && site.options != undefined && site.options.notifyTime != undefined && site.options.notifyTime > 0;
 	});

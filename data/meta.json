@@ -123,7 +123,7 @@
 		"conversion": 100,
 		"url":"http://grindabuck.com/acc",
 		"name":"GrindaBuck",
-		"fractions":false
+		"fractions":true
 	}
 
 
