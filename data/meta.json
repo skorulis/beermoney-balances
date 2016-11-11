@@ -136,7 +136,14 @@
 		"url":"http://www.rewardscentral.com.au/",
 		"name":"Rewards Central",
 		"fractions":false
+	},
+	"rewardingways": {
+		"conversion": 1,
+		"url":"http://rewardingways.com/members/index.php",
+		"name":"Rewarding Ways",
+		"fractions":true
 	}
+
 
 
 }
