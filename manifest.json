@@ -181,6 +181,12 @@
 	  		"*://app.spare5.com/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/spare5.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://www.usertesting.com/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/usertesting.js"]
 	  }
 
 
