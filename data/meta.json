@@ -1,4 +1,64 @@
 {
+	"qmee": {
+		"conversion": 1,
+		"url":"https://www.qmee.com/users/",
+		"name":"Qmee",
+		"fractions":true
+	},
+	"pocketmoneygpt": {
+		"conversion": 1,
+		"url":"http://www.pocketmoneygpt.com/",
+		"name":"Pocket Money GPT",
+		"fractions":true
+	},
+	"smartpanel": {
+		"conversion": 1,
+		"url":"https://vertosmart.com/benefits/",
+		"name":"Smart Panel",
+		"fractions":true
+	},
+	"crossmedia": {
+		"conversion": 1,
+		"url":"https://www.crossmediapanel.com/account/",
+		"name":"Cross Media Panel",
+		"fractions":true
+	},
+	"ipoll": {
+		"conversion": 1,
+		"url":"https://www.ipoll.com/en/secured/my-account/",
+		"name":"iPoll",
+		"fractions":true
+	},
+	"opinionoutpost": {
+		"conversion": 10,
+		"url":"http://www.opinionoutpost.com/secured/my-dashboard/",
+		"name":"Opinion Outpost",
+		"fractions":false
+	},
+	"earningstation": {
+		"conversion": 100,
+		"url":"http://www.earningstation.com/",
+		"name":"Earning Station",
+		"fractions":false
+	},
+	"pinecone": {
+		"conversion": 100,
+		"url":"https://www.pineconeresearch.com/",
+		"name":"Pinecone Research",
+		"fractions":false
+	},
+	"mintvine": {
+		"conversion": 100,
+		"url":"https://mintvine.com/users/dashboard/",
+		"name":"MintVine",
+		"fractions":false
+	},
+	"checkpoints": {
+		"conversion": 335,
+		"url":"http://www.checkpoints.com/collect/",
+		"name":"CheckPoints",
+		"fractions":false
+	},
 	"swagbucks": {
 		"conversion": 100,
 		"url":"http://www.swagbucks.com/",
