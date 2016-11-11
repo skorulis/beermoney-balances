@@ -72,7 +72,7 @@
 		"fractions":false
 	},
 	"prolific": {
-		"conversion": 0.79,
+		"conversion": 0.80,
 		"url":"https://www.prolific.ac/participant/account",
 		"name":"Prolific",
 		"fractions":true
@@ -84,9 +84,15 @@
 		"fractions":false
 	},
 	"freebitco-in": {
-		"conversion": 0.0016,
+		"conversion": 0.0014, 
 		"url":"https://freebitco.in",
 		"name":"Free bitcoin",
+		"fractions":true
+	},
+	"moonbitcoin": {
+		"conversion": 0.0014,
+		"url":"http://moonbit.co.in/",
+		"name":"Moon bitcoin",
 		"fractions":true
 	},
 	"usabilityhub": {

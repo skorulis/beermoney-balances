@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Beermoney Balances",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author":"Alex Skorulis",
   "short_name":"BMB",
   "homepage_url":"http://beermoneybalances.skorulis.com/",
@@ -115,6 +115,12 @@
 	  		"*://freebitco.in/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/freebitco.in.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://moonbit.co.in/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/moonbitcoin.js"]
 	  },
 	  {
 	  	"matches":[
