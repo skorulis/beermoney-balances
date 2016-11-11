@@ -130,6 +130,12 @@
 		"url":"http://grindabuck.com/acc",
 		"name":"GrindaBuck",
 		"fractions":true
+	},
+	"rewardscentral": {
+		"conversion": 144,
+		"url":"http://www.rewardscentral.com.au/",
+		"name":"Rewards Central",
+		"fractions":false
 	}
 
 
