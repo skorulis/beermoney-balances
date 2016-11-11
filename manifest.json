@@ -175,6 +175,12 @@
 	  		"*://rewardingways.com/members/index.php"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/rewardingways.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://app.spare5.com/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/spare5.js"]
 	  }
 
 
