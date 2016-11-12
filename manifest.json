@@ -28,6 +28,66 @@
   "content_scripts": [
 	  {
 	    "matches": [
+	      "*://www.qmee.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/qmee.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.pocketmoneygpt.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/pocketmoneygpt.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://vertosmart.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/smartpanel.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.crossmediapanel.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/crossmedia.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.ipoll.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/ipoll.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.opinionoutpost.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/opinionoutpost.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.earningstation.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/earningstation.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.pineconeresearch.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/pinecone.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://mintvine.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/mintvine.js"]
+	  },
+	  {
+	    "matches": [
+	      "*://www.checkpoints.com/*"
+	    ],
+	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/checkpoints.js"]
+	  },
+	  {
+	    "matches": [
 	      "*://www.swagbucks.com/*"
 	    ],
 	    "js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/swagbucks.js"]
