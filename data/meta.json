@@ -66,7 +66,7 @@
 		"fractions":false
 	},
 	"perktv": {
-		"conversion": 1500,
+		"conversion": 1000,
 		"url":"http://perk.tv/home",
 		"name":"PerkTV",
 		"fractions":false
