@@ -55,7 +55,7 @@
 	},
 	"checkpoints": {
 		"conversion": 335,
-		"url":"http://www.checkpoints.com/collect/",
+		"url":"http://www.checkpoints.com/collect",
 		"name":"CheckPoints",
 		"fractions":false
 	},
