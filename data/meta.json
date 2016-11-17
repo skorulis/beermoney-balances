@@ -220,6 +220,12 @@
 		"url":"https://microworkers.com/",
 		"name":"microWorkers",
 		"fractions":true
+	},
+	"cashcrate": {
+		"conversion": 1,
+		"url":"http://www.cashcrate.com/dashboard",
+		"name":"Cash Crate",
+		"fractions":true
 	}
 
 
