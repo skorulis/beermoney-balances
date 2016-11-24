@@ -226,8 +226,12 @@
 		"url":"http://www.cashcrate.com/dashboard",
 		"name":"Cash Crate",
 		"fractions":true
+	},
+	"lootpalace": {
+		"conversion": 800,
+		"url":"http://lootpalace.com/",
+		"name":"Loot Palace",
+		"fractions":false
 	}
-
-
 
 }
