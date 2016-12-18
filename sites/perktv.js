@@ -6,7 +6,10 @@ function readPoints() {
 		outer.find(".odometer-value").each(function() {
 			total += $(this).text();
 		});
-		saveBalance("perktv",parseInt(total));
+		var value = parseInt(total);
+		if(value < 10000000) { //Prevent bad balance reads
+			saveBalance("perktv",value);	
+		}
 	}
 }
 
