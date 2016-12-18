@@ -35,12 +35,14 @@ function generateOptions(sites,metaData,other) {
 		html += '<input min="0" step="10" name="notification-freq" type="number" value="' + notifyValue +'" >';
 		html += '</div>';
 		html += '<button class="site-save btn-outline">Save</button>';
+		html += '<button class="site-delete btn-outline">Delete data</button>';
 		html += '</form>';
 		html += '</div>';
 		$("#main").append(html);
 	});
 
 	$("button.site-save").click(saveForm);
+	$("button.site-delete").click(deleteSite);
 	$("#opt-auto-enabled").click(updateAutoEnabled);
 	$("#opt-notify-enabled").click(updateNotifyEnabled);
 	$("#opt-auto-enabled").prop("checked",options.autoEnabled);
@@ -56,8 +58,7 @@ function saveForm(event) {
 	event.preventDefault();
 	var form = $(event.target).parent()[0];
 	var site = form.id.substring(5);
-	console.log(form);
-	console.log(site);
+
 	
 	var updateFreq = parseInt(form["update-freq"].value);
 	var notifyTime = parseInt(form["notification-freq"].value);
@@ -68,6 +69,16 @@ function saveForm(event) {
 	saveOptions(site,options);
 
 	return false;
+}
+
+function deleteSite(event) {
+	event.preventDefault();
+	var form = $(event.target).parent()[0];
+	var site = form.id.substring(5);
+
+	chrome.storage.local.remove(site,function() {
+		location.reload();	
+	});
 }
 
 function snapValue(value,min) {
