@@ -265,6 +265,12 @@
 	  		"*://lootpalace.com/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/lootpalace.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://pricepal.com.au/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/pricepal.js"]
 	  }
 
 

@@ -232,6 +232,12 @@
 		"url":"http://lootpalace.com/",
 		"name":"Loot Palace",
 		"fractions":false
+	},
+	"pricepal": {
+		"conversion": 1,
+		"url":"https://pricepal.com.au/account/home",
+		"name":"PricePal",
+		"fractions":true
 	}
 
 }
