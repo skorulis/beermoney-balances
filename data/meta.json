@@ -238,6 +238,12 @@
 		"url":"https://pricepal.com.au/account/home",
 		"name":"PricePal",
 		"fractions":true
+	},
+	"paidviewpoint": {
+		"conversion": 1,
+		"url":"https://paidviewpoint.com/dashboard",
+		"name":"Paid Viewpoint",
+		"fractions":true
 	}
 
 }

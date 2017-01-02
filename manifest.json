@@ -271,6 +271,12 @@
 	  		"*://pricepal.com.au/*"
 	  	],
 	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/pricepal.js"]
+	  },
+	  {
+	  	"matches":[
+	  		"*://paidviewpoint.com/*"
+	  	],
+	  	"js": ["js/jquery-3.1.1.slim.min.js","js/main.js","sites/paidviewpoint.js"]
 	  }
 
 
