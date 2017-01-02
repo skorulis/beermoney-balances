@@ -9,6 +9,9 @@ function generateOptions(sites,metaData,other) {
 		options = {autoEnabled:true};
 		chrome.storage.local.set({options:options});
 	}
+	if(options.disableAnalytics == undefined) {
+		options.disableAnalytics = false;
+	}
 
 	sites = sites.filter(function(s) {
 		return s.entries != undefined && s.entries.length > 0 && metaData[s.name] != undefined;
@@ -45,8 +48,10 @@ function generateOptions(sites,metaData,other) {
 	$("button.site-delete").click(deleteSite);
 	$("#opt-auto-enabled").click(updateAutoEnabled);
 	$("#opt-notify-enabled").click(updateNotifyEnabled);
+	$("#opt-analytics-enabled").click(updateAnalyticsEnabled);
 	$("#opt-auto-enabled").prop("checked",options.autoEnabled);
 	$("#opt-notify-enabled").prop("checked",options.notifyEnabled);
+	$("#opt-analytics-enabled").prop("checked",!options.disableAnalytics);
 
 	$("#opt-maker-key").prop("value",options.makerKey);
 
@@ -91,11 +96,19 @@ function snapValue(value,min) {
 }
 
 function updateAutoEnabled(event) {
+	chrome.runtime.sendMessage({message:"log-event",eventCategory:"change-option",eventAction:"change-option-auto"});
 	options.autoEnabled = event.target.checked;
 	chrome.storage.local.set({options:options});
 }
 
+function updateAnalyticsEnabled(event) {
+	chrome.runtime.sendMessage({message:"change-analytics",enabled:event.target.checked});
+	options.disableAnalytics = !event.target.checked;
+	chrome.storage.local.set({options:options});	
+}
+
 function updateNotifyEnabled(event) {
+	chrome.runtime.sendMessage({message:"log-event",eventCategory:"change-option",eventAction:"change-option-notifications"});
 	options.notifyEnabled = event.target.checked;
 	chrome.storage.local.set({options:options});
 }

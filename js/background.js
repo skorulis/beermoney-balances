@@ -6,6 +6,15 @@ var GA_CLIENT_ID = undefined;
 var autoUpdateTabId = undefined;
 var autoUpdateSites = [];
 var lastNotificationCheck = 0;
+var analyticsEnabled = true;
+
+function onStart() {
+	readDataAndMeta(function(sites,metaData,other) {
+		if(other.options.disableAnalytics != undefined) {
+			analyticsEnabled = !other.options.disableAnalytics;
+		}
+	});
+}
 
 function getClientId(completion) {
 	if (GA_CLIENT_ID != undefined) {
@@ -24,9 +33,11 @@ function getClientId(completion) {
 	
 }
 
-function logEvent(eventCategory,eventAction) {
-	var message = "&t=event&ec=" + eventCategory + "&ea=" + eventAction;
-	sendGARequest(message);
+function logEvent(eventCategory,eventAction,force) {
+	if(force || analyticsEnabled) {
+		var message = "&t=event&ec=" + eventCategory + "&ea=" + eventAction;
+		sendGARequest(message);
+	}
 }
 
 function logPage(pageName) {
@@ -139,20 +150,25 @@ function getAutoUpdateTab(callback) {
 	}
 }
 
+onStart();
 checkAutoUpdates();
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if (request.message == "save-options") {
-		logEvent("save-options","save-options-" + request.site);
+	if(request.message == "change-analytics") {
+		analyticsEnabled = request.enabled;
+		logEvent("change-options","change-options-analytics",true);
+		console.log("analytics " + request.enabled);
+	} else if (request.message == "save-options") {
+		logEvent("save-options","save-options-" + request.site,false);
 	} else if(request.message == "log-page") {
 		logPage(request.pageName);
 	} else if(request.message == "log-event") {
-		logEvent(request.eventCategory,request.eventAction);
+		logEvent(request.eventCategory,request.eventAction,false);
 	} else if(request.message == "start-update") {
 		toClose[request.site] = request.tab;
 	} else if(request.message == "save") {
 		if (request.change != 0) {
-			logEvent("change-balance","change-" + request.site);
+			logEvent("change-balance","change-" + request.site,false);
 		}
 		if(toClose[request.site] == sender.tab.id) {
 			toClose[request.site] = null;
