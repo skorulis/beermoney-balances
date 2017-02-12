@@ -1,20 +1,17 @@
 function readBalance() {
-	var outer = $("#topbar");
-	if (outer.length == 0) {
-		outer = $('nav.navbar-fixed-top');
+	var element = $(".odometer-inside");
+	var balance = undefined;
+	if(element.length == 1) {
+		var text = element.find(".odometer-value, .odometer-formatting-mark").text();
+		balance = parseFloat(text);
 	}
-	
-	if (outer.length > 0) {
-		var metric = outer.find(".profile-metric")[0];
-		var balance = $(metric).children('strong')[0];
-		var amount = $(balance).text().substring(1);
-		console.log(balance);
-		if (balance == undefined) {
-			setTimeout(function() { readBalance(); }, 2000);
-		} else {
-			saveBalance("pureprofile",amount);
-		}
+
+	if (balance == undefined) {
+		setTimeout(function() { readBalance(); }, 2000);
+	} else {
+		saveBalance("pureprofile",balance);
 	}
+
 }
 
 setTimeout(function() { readBalance(); }, 2000);
