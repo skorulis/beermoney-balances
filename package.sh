@@ -1,0 +1,1 @@
+zip -r ../bmb.zip ./ -x \*.git\* -x .DS_Store
